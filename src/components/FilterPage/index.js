@@ -2,42 +2,32 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { FilterSidebar } from '../FilterSidebar';
 import { DogCard } from '../DogCard';
+import { useFetchBreeds, useFetchDogs } from './dogDataHooks';
 import './FilterPage.css';
 
 export default function FilterPage() {
     const [filters, setFilters] = useState({});
     const [results, setResults] = useState([]);
 
-    const [resultIds, setResultIds] = useState([]);
-    const [dogDetails, setDogDetails] = useState([]);
+    const [availableBreeds, setAvailableBreeds] = useFetchBreeds();
 
-    const [availableBreeds, setAvailableBreeds] = useState([]);
     const [selectedBreeds, setSelectedBreeds] = useState(new Set());
+
+    const { resultIds, setResultIds, nextQuery, setNextQuery, prevQuery, setPrevQuery } = useFetchDogs(selectedBreeds);
+
+    const [dogDetails, setDogDetails] = useState([]);
 
     const [showBreeds, setShowBreeds] = useState(false);
 
     const [pageSize, setPageSize] = useState(25); // The number of results to fetch per request
     const [sortOrder, setSortOrder] = useState('asc'); // Sort order
-    const [nextQuery, setNextQuery] = useState(null); // The query to fetch the next set of results
-    const [prevQuery, setPrevQuery] = useState(null); // The query to fetch the previous set of results
 
     const toggleShowBreeds = () => {
         setShowBreeds(!showBreeds);
     }
 
-    useEffect(() => {
-        axios.get('https://frontend-take-home-service.fetch.com/dogs/breeds', { withCredentials: true })
-            .then(response => {
-                setAvailableBreeds(response.data);
-            })
-            .catch(error => {
-                console.error('Error fetching available breeds:', error);
-            });
-    }, []);
-
     const handleCheckboxChange = (breed) => {
         const newSelectedBreeds = new Set(selectedBreeds);
-        // console.log('NEW SELECTED BREEDS', newSelectedBreeds);
         if (newSelectedBreeds.has(breed)) {
             newSelectedBreeds.delete(breed);
         } else {
@@ -60,11 +50,8 @@ export default function FilterPage() {
 
         axios.get(url, { withCredentials: true })
             .then(response => {
-                // console.log('GET RESPONSE DATA', response.data);
                 setResultIds(response.data.resultIds);
-                // console.log('NEXT DATA', response.data.next)
                 setNextQuery(response.data.next); // set the next query
-                // console.log('PREVIOUS DATA', response.data.prev)
                 setPrevQuery(response.data.prev); // set the previous query
             })
             .catch(error => {
