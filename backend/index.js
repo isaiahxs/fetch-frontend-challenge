@@ -23,3 +23,9 @@ app.listen(port, () => {
 app.get('/api/test', (req, res) => {
     res.send('Check the console');
 });
+
+app.post('/auth/login', (req, res) => {
+    const { name, email } = req.body;
+    // Handle authentication logic here
+    res.json({ message: 'Login successful', name, email });
+});

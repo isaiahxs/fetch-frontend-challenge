@@ -73,15 +73,15 @@ export default function Navigation() {
         <nav className='nav-bar'>
             <div className='nav-options'>
                 <div className='nav-logo-container'>
-                    <img src={black_dog} className='small-logo' alt="Black Dog Logo" onClick={() => scrollToTop()} />
+                    <img src={black_dog} className='small-logo fade-in' alt="Black Dog Logo" onClick={() => scrollToTop()} />
                 </div>
 
-                <div className='nav-name'>
+                <div className='nav-name fade-in'>
                     Fetch Challenge
                 </div>
 
                 <div className='nav-logo-container'>
-                    <img src={hamburger} className='small-logo hamburger-menu' alt='Hamburger Menu' onClick={toggleNavOpen} />
+                    <img src={hamburger} className='small-logo hamburger-menu fade-in' alt='Hamburger Menu' onClick={toggleNavOpen} />
                 </div>
 
                 {isNavOpen && <div className='backdrop'></div>}
