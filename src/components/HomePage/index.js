@@ -7,9 +7,10 @@ import Footer from '../Footer';
 import './HomePage.css';
 
 export default function HomePage() {
+    const [isModalVisible, setModalVisible] = useState(localStorage.getItem('isLoggedIn') !== 'true');
     return (
         <div>
-            <Navigation />
+            <Navigation isModalVisible={isModalVisible} setModalVisible={setModalVisible} />
 
             <div className='home-container fade-in'>
                 <h1 className='home-header syne'>Welcome to my Front-End Fetch Challenge</h1>
@@ -20,7 +21,7 @@ export default function HomePage() {
 
             <Gallery />
 
-            <LoginFormModal />
+            <LoginFormModal isModalVisible={isModalVisible} setModalVisible={setModalVisible} />
 
             <Footer />
         </div>

@@ -8,12 +8,14 @@ import hamburger from '../../assets/icons/hamburger.png';
 import axios from 'axios';
 import './Navigation.css'
 
-export default function Navigation() {
+export default function Navigation({ isModalVisible, setModalVisible }) {
     const { currentLanguage, setCurrentLanguage } = useLanguage();
     const content = currentLanguage === 'english' ? englishContent : spanishContent;
     const [lastScrollPos, setLastScrollPos] = useState(0);
     const [isScrollingDown, setIsScrollingDown] = useState(false);
     const location = useLocation();
+    // const [isModalVisible, setModalVisible] = useState(localStorage.getItem('isLoggedIn') !== 'true');
+
 
     const navRef = useRef();
     const [isNavOpen, setIsNavOpen] = useState(false);
@@ -76,6 +78,8 @@ export default function Navigation() {
             console.log('Logout success');
             localStorage.removeItem('isLoggedIn'); // Remove the flag from local storage
             // Code to update the isModalVisible state in LoginFormModal
+            setIsNavOpen(!isNavOpen);
+            setModalVisible(true);
         } catch (error) {
             console.log('Logout error:', error);
         }

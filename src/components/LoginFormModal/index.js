@@ -3,15 +3,14 @@ import { useModal } from '../../context/Modal';
 import axios from 'axios';
 import './LoginFormModal.css';
 
-function LoginFormModal() {
+function LoginFormModal({ isModalVisible, setModalVisible }) {
     // localStorage.removeItem('isLoggedIn');
     const { closeModal } = useModal();
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [errors, setErrors] = useState([]);
     const [isVisible, setIsVisible] = useState(true);
-    const [isModalVisible, setModalVisible] = useState(localStorage.getItem('isLoggedIn') !== 'true');
-
+    // const [isModalVisible, setModalVisible] = useState(localStorage.getItem('isLoggedIn') !== 'true');
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -40,6 +39,22 @@ function LoginFormModal() {
             setErrors(['An error occurred during login']);
         }
     };
+
+    // This effect runs whenever the component mounts and anytime isModalVisible changes
+    useEffect(() => {
+        // Function to update isModalVisible based on localStorage
+        const updateModalVisibility = () => {
+            setModalVisible(localStorage.getItem('isLoggedIn') !== 'true');
+        };
+
+        // Listen for changes to localStorage
+        window.addEventListener('storage', updateModalVisibility);
+
+        // Cleanup: remove event listener when component unmounts
+        return () => {
+            window.removeEventListener('storage', updateModalVisibility);
+        };
+    }, []);
 
     return (
         <>
