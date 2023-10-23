@@ -80,6 +80,7 @@ function LoginFormModal({ isModalVisible, setModalVisible }) {
                                 Name
                             </label>
                             <input
+                                name='name'
                                 className='credential-input'
                                 type='text'
                                 value={name}
@@ -90,6 +91,7 @@ function LoginFormModal({ isModalVisible, setModalVisible }) {
                                 Email
                             </label>
                             <input
+                                name='email'
                                 className='credential-input'
                                 type='email'
                                 value={email}

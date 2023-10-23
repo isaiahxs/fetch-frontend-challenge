@@ -13,7 +13,7 @@ export default function Gallery() {
 
     return (
         <div className='gallery-section'>
-            <h2 className='gallery-header'>Our dogs</h2>
+            <h2 className='gallery-header'>Our Gallery</h2>
             {/* <h3 className='gallery-subheading'>
                 {content.subheader}
                 <a className='view-more-ig' href='' target='_blank' rel='noopener noreferrer'>
@@ -75,7 +75,7 @@ export default function Gallery() {
                 </div>
             </section>
 
-            <section className='gallery-2'>
+            {/* <section className='gallery-2'>
                 <div className='slider'>
                     <div className='slide-track'>
                         <div className='img-container slide'>
@@ -127,7 +127,7 @@ export default function Gallery() {
                         </div>
                     </div>
                 </div>
-            </section>
+            </section> */}
         </div>
     )
 }

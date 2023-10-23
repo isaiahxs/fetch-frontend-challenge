@@ -1,7 +1,123 @@
+import React, { useState } from 'react';
+import { useLanguage } from '../../LanguageContext';
+import { englishContent, spanishContent } from './content';
+import Darron from '../../assets/images/Darron_Border_Collie.jpg';
+import doge from '../../assets/images/german_shep.png';
+import { Link } from 'react-router-dom';
+import map_pin from '../../assets/icons/map-pin.svg';
+import phone from '../../assets/icons/phone-icon.svg';
+import facebook from '../../assets/icons/facebook-logo.svg';
+import instagram from '../../assets/icons/instagram.png';
 import './Hero.css';
 
-export default function Hero() {
+export default function GBHero() {
+    const { currentLanguage, setCurrentLanguage } = useLanguage();
+
+    const toggleLanguage = () => {
+        setCurrentLanguage(currentLanguage === 'english' ? 'spanish' : 'english');
+    };
+
+    const content = currentLanguage === 'english' ? englishContent : spanishContent;
+
+    const scrollToSection = (sectionId) => {
+        const sectionElement = document.getElementById(sectionId);
+        const yOffset = -100;
+        const topOffset = sectionElement.getBoundingClientRect().top + window.scrollY + yOffset;
+        window.scrollTo({ top: topOffset, behavior: 'smooth' });
+    };
+
     return (
-        <div>Hero</div>
+        <header className='header-container'>
+            <div className='hero-section'>
+                <div className='hero-information'>
+                    {/* <button className='language-toggle-button' onClick={toggleLanguage}>
+                        {currentLanguage === 'english' ? 'Español' : 'English'}
+                    </button> */}
+                    <h1 className='title fade1'>{content.title}</h1>
+                    <h2 className='location fade1'>{content.location}</h2>
+                    <button className='hero-language-toggle-button fade1' onClick={toggleLanguage}>
+                        {currentLanguage === 'english' ? 'Español' : 'English'}
+                    </button>
+                    {/* <h3 className='description'>Experience the beauty and elegance of our salon.</h3> */}
+
+                    <div className='hero-descriptions-container fade2'>
+                        <h3 className='description'>
+                            {content.description}
+                        </h3>
+
+                        <h3 className='description description-2'>
+                            {content.description2}
+                        </h3>
+
+                        <h3 className='description description-hours'>
+                            {content.hours}
+                        </h3>
+
+                        <h3 className='description description-hours description-hours-bottom'>
+                            {content.hoursSat}
+                        </h3>
+                    </div>
+
+                    <div className='hero-buttons-container fade2'>
+                        <button className='view-gallery-hero' onClick={() => scrollToSection('gallery')}>
+                            {content.viewGallery}
+                        </button>
+
+                        {/* <button className='view-services-hero' onClick={() => scrollToSection('services')}>
+                            {content.viewPrices}
+                        </button> */}
+
+                    </div>
+                </div>
+
+                <div className='hero-image-and-contact fade3'>
+                    <div className='hero-image-container'>
+                        <img src={doge} className='hero-image' alt="Darron dog" />
+                        <div className="gradient-overlay">
+                            <div className='contact-container'>
+                                <div className='contact-heading-container'>
+                                    <h3 className='contact-heading-text'>{content.contactHeading}</h3>
+                                </div>
+
+                                <a href="https://fetch.com/"
+                                    target='_blank' rel='noopener noreferrer'>
+                                    <div className='footer-icon-container'>
+                                        <p className='footer-icon-description'>
+                                            <span>
+                                                <img src={map_pin} className='footer-icon GB-map-icon' alt='Map Pin Icon' />
+                                                1050 E Washington Ave Suite 200 Madison, WI 53703
+                                            </span>
+                                        </p>
+                                    </div>
+                                </a>
+
+                                <a href='tel:+7866307547'>
+                                    <div className='footer-icon-container'>
+                                        <img src={phone} className='footer-icon' alt='Phone Icon' />
+                                        <p className='footer-icon-description'>
+                                            (608) 345-1296
+                                        </p>
+                                    </div>
+                                </a>
+
+                                <a href="https://www.facebook.com/FetchRewards/" target='_blank' rel='noopener noreferrer'>
+                                    <div className='footer-icon-container'>
+                                        <img src={facebook} className='footer-icon' alt='Facebook Logo' />
+                                        <p className='footer-icon-description'>Facebook</p>
+                                    </div>
+                                </a>
+
+                                <a href='https://www.instagram.com/fetchrewards/?hl=en' target='_blank' rel='noopener noreferrer'>
+                                    <div className='footer-icon-container'>
+                                        <img src={instagram} className='footer-icon' alt='Instagram Logo' />
+                                        <p className='footer-icon-description'>Instagram</p>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
     )
 }
