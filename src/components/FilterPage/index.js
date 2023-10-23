@@ -12,6 +12,12 @@ export default function FilterPage() {
     const [availableBreeds, setAvailableBreeds] = useState([]);
     const [selectedBreeds, setSelectedBreeds] = useState(new Set());
 
+    const [showBreeds, setShowBreeds] = useState(false);
+
+    const toggleShowBreeds = () => {
+        setShowBreeds(!showBreeds);
+    }
+
     useEffect(() => {
         axios.get('https://frontend-take-home-service.fetch.com/dogs/breeds', { withCredentials: true })
             .then(response => {
@@ -94,21 +100,34 @@ export default function FilterPage() {
                 <h1>Find Your Pet</h1>
             </header>
 
-            <button onClick={fetchData}>Fetch Dogs</button>
+            <button className='search-button' onClick={fetchData}>Fetch Dogs</button>
 
             <div className="filter-page-content">
                 <aside className="filter-sidebar">
                     <h2>Filters</h2>
-                    {availableBreeds.map((breed, index) => (
-                        <label key={index}>
-                            <input
-                                type="checkbox"
-                                value={breed}
-                                onChange={() => handleCheckboxChange(breed)}
-                            />
-                            {breed}
-                        </label>
-                    ))}
+                    <div>
+                        <button className='dropdown-button' onClick={toggleShowBreeds}>
+                            Breeds {showBreeds ? '▲' : '▼'}
+                        </button>
+                        {showBreeds && (
+                            <div className='options'>
+                                {availableBreeds.map((breed, index) => (
+                                    <label className='dropdown-options' key={index}>
+                                        <input
+                                            className='dropdown-checkbox'
+                                            type="checkbox"
+                                            value={breed}
+                                            onChange={() => handleCheckboxChange(breed)}
+                                        />
+                                        <p className='dropdown-text'>
+                                            {breed}
+                                        </p>
+
+                                    </label>
+                                ))}
+                            </div>
+                        )}
+                    </div>
                 </aside>
 
                 <main className="filter-results">
@@ -116,10 +135,12 @@ export default function FilterPage() {
                     <div>
                         {dogDetails.map((dog, index) => (
                             <div key={dog.id || index} className="dog-card">
-                                <img src={dog.img} alt={`${dog.name} picture`} />
-                                <p>Name: {dog.name}</p>
-                                <p>Age: {dog.age}</p>
-                                <p>Breed: {dog.breed}</p>
+                                <img src={dog.img} className='dog-picture' alt={`${dog.name} picture`} />
+                                <div className='section-under-picture'>
+                                    <p>Name: {dog.name}</p>
+                                    <p>Age: {dog.age}</p>
+                                    <p>Breed: {dog.breed}</p>
+                                </div>
                             </div>
                         ))}
                     </div>
