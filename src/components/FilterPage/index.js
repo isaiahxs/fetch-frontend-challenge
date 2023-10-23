@@ -23,9 +23,11 @@ export default function FilterPage() {
             });
     }
 
+    // console.log('resultIds', resultIds);
+
     useEffect(() => {
         if (resultIds.length > 0) {
-            axios.post('https://frontend-take-home-service.fetch.com/dogs', { ids: resultIds.slice(0, 3) }, { withCredentials: true })  // Object
+            axios.post('https://frontend-take-home-service.fetch.com/dogs', resultIds, { withCredentials: true })
                 .then(response => {
                     console.log('RESPONSE DATA', response.data)
                     setDogDetails(response.data);
