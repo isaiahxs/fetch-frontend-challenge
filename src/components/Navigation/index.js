@@ -6,6 +6,7 @@ import black_dog from '../../assets/icons/black-dog.png';
 import logo_footer from '../../assets/icons/logo-footer.png';
 import hamburger from '../../assets/icons/hamburger.png';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom'
 import './Navigation.css'
 
 export default function Navigation({ isModalVisible, setModalVisible }) {
@@ -15,6 +16,7 @@ export default function Navigation({ isModalVisible, setModalVisible }) {
     const [isScrollingDown, setIsScrollingDown] = useState(false);
     const location = useLocation();
     // const [isModalVisible, setModalVisible] = useState(localStorage.getItem('isLoggedIn') !== 'true');
+    const navigate = useNavigate()
 
 
     const navRef = useRef();
@@ -78,6 +80,7 @@ export default function Navigation({ isModalVisible, setModalVisible }) {
             console.log('Logout success');
             localStorage.removeItem('isLoggedIn'); // Remove the flag from local storage
             // Code to update the isModalVisible state in LoginFormModal
+            navigate('/');
             setIsNavOpen(!isNavOpen);
             setModalVisible(true);
         } catch (error) {
@@ -89,7 +92,7 @@ export default function Navigation({ isModalVisible, setModalVisible }) {
         <nav className='nav-bar'>
             <div className='nav-options'>
                 <div className='nav-logo-container'>
-                    <img src={black_dog} className='small-logo fade-in' alt="Black Dog Logo" onClick={() => scrollToTop()} />
+                    <img src={black_dog} className='small-logo fade-in' alt="Black Dog Logo" onClick={() => navigate('/')} />
                 </div>
 
                 <div className='nav-name fade-in'>

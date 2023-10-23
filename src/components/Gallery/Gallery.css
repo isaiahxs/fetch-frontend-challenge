@@ -1,7 +1,11 @@
+.gallery-section {
+    margin-bottom: 50px;
+}
+
 .gallery-header {
     display: flex;
     justify-content: center;
-    /* margin-bottom: 20px; */
+    margin-bottom: 20px;
     font-size: 1.7rem;
 }
 

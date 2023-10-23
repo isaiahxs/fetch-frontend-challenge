@@ -1,23 +1,23 @@
 export const englishContent = {
-    title: "Unleash Your Love",
-    location: "Located in Madison, Wisconsin",
-    description: "Discover the joy of adopting a new furry friend into your life.",
-    description2: "We provide a clean, safe, and loving environment for all our four-legged guests.",
-    hours: "Operating Hours: Mon-Fri 9am - 7pm",
-    hoursSat: "Saturday: 10am - 4pm",
-    viewGallery: "View Our Gallery",
-    viewPrices: "Check Adoption Fees",
-    contactHeading: "Stay Connected"
+    title: "Find Your Furry Friend",
+    location: "Connecting You to Shelters Nationwide",
+    description: "Browse through our extensive database to find the perfect companion.",
+    description2: "We make it easy for you to connect with shelters and bring home a loving pet.",
+    hours: "Always Open: Search Anytime, Anywhere",
+    hoursSat: " ",
+    viewGallery: "Our Gallery",
+    viewPets: "Start Looking For Pets",
+    contactHeading: "Contact Us"
 };
 
 export const spanishContent = {
-    title: "Desata Tu Amor",
-    location: "Ubicado en Madison, Wisconsin",
-    description: "Descubre la alegría de adoptar un nuevo amigo peludo en tu vida.",
-    description2: "Ofrecemos un ambiente limpio, seguro y lleno de amor para todos nuestros huéspedes de cuatro patas.",
-    hours: "Horario de atención: Lun-Vie 9am - 7pm",
-    hoursSat: "Sábado: 10am - 4pm",
-    viewGallery: "Ver Nuestra Galería",
-    viewPrices: "Consultar Tarifas de Adopción",
-    contactHeading: "Mantente Conectado"
+    title: "Encuentra a Tu Amigo Peludo",
+    location: "Conectándote con Refugios en Todo el País",
+    description: "Navega por nuestra amplia base de datos para encontrar al compañero perfecto.",
+    description2: "Facilitamos tu conexión con refugios para que puedas llevar a casa una mascota amorosa.",
+    hours: "Siempre Abierto: Busca en Cualquier Momento, en Cualquier Lugar",
+    hoursSat: " ",
+    viewGallery: "Ver Galería",
+    viewPets: "Comienza a Buscar Mascotas",
+    contactHeading: "Contáctanos"
 };

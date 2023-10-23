@@ -8,11 +8,12 @@ import map_pin from '../../assets/icons/map-pin.svg';
 import phone from '../../assets/icons/phone-icon.svg';
 import facebook from '../../assets/icons/facebook-logo.svg';
 import instagram from '../../assets/icons/instagram.png';
+import { useNavigate } from 'react-router-dom'
 import './Hero.css';
 
-export default function GBHero() {
+export default function Hero() {
     const { currentLanguage, setCurrentLanguage } = useLanguage();
-
+    const navigate = useNavigate()
     const toggleLanguage = () => {
         setCurrentLanguage(currentLanguage === 'english' ? 'spanish' : 'english');
     };
@@ -59,14 +60,13 @@ export default function GBHero() {
                     </div>
 
                     <div className='hero-buttons-container fade2'>
+                        <button className='view-services-hero' onClick={() => navigate('/filter')}>
+                            {content.viewPets}
+                        </button>
+
                         <button className='view-gallery-hero' onClick={() => scrollToSection('gallery')}>
                             {content.viewGallery}
                         </button>
-
-                        {/* <button className='view-services-hero' onClick={() => scrollToSection('services')}>
-                            {content.viewPrices}
-                        </button> */}
-
                     </div>
                 </div>
 
@@ -84,7 +84,7 @@ export default function GBHero() {
                                     <div className='footer-icon-container'>
                                         <p className='footer-icon-description'>
                                             <span>
-                                                <img src={map_pin} className='footer-icon GB-map-icon' alt='Map Pin Icon' />
+                                                <img src={map_pin} className='footer-icon map-icon' alt='Map Pin Icon' />
                                                 1050 E Washington Ave Suite 200 Madison, WI 53703
                                             </span>
                                         </p>

@@ -1,0 +1,17 @@
+.filter-page {
+    margin-top: 120px;
+}
+
+.filter-page-header {}
+
+.filter-page-content {
+    display: flex;
+}
+
+.filter-sidebar {
+    flex: 1;
+}
+
+.filter-results {
+    flex: 3;
+}

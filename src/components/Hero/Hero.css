@@ -115,6 +115,7 @@
 
 .hero-language-toggle-button {
     margin-bottom: 10px;
+    width: 100px;
 }
 
 .description {
@@ -159,12 +160,12 @@
 }
 
 .view-reviews-hero {
-    margin-top: 5px;
-    margin-bottom: 5px;
+    /* margin-top: 5px; */
+    /* margin-bottom: 5px; */
 }
 
 .view-gallery-hero {
-    margin-bottom: 10px;
+    margin-top: 10px;
 }
 
 .view-gallery-hero,
