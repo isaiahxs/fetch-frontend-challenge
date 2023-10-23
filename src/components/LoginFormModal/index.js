@@ -50,11 +50,18 @@ function LoginFormModal({ isModalVisible, setModalVisible }) {
         // Listen for changes to localStorage
         window.addEventListener('storage', updateModalVisibility);
 
+        if (isModalVisible) {
+            document.body.style.overflow = 'hidden';
+        } else {
+            document.body.style.overflow = 'auto';
+        }
+
         // Cleanup: remove event listener when component unmounts
         return () => {
+            document.body.style.overflow = 'auto';
             window.removeEventListener('storage', updateModalVisibility);
         };
-    }, []);
+    }, [isModalVisible]);
 
     return (
         <>
