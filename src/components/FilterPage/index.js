@@ -14,6 +14,11 @@ export default function FilterPage() {
 
     const [showBreeds, setShowBreeds] = useState(false);
 
+    const [pageSize, setPageSize] = useState(25); // The number of results to fetch per request
+    const [sortOrder, setSortOrder] = useState('asc'); // Sort order
+    const [nextQuery, setNextQuery] = useState(null); // The query to fetch the next set of results
+    const [prevQuery, setPrevQuery] = useState(null); // The query to fetch the previous set of results
+
     const toggleShowBreeds = () => {
         setShowBreeds(!showBreeds);
     }
@@ -30,6 +35,7 @@ export default function FilterPage() {
 
     const handleCheckboxChange = (breed) => {
         const newSelectedBreeds = new Set(selectedBreeds);
+        console.log('NEW SELECTED BREEDS', newSelectedBreeds);
         if (newSelectedBreeds.has(breed)) {
             newSelectedBreeds.delete(breed);
         } else {
@@ -39,10 +45,10 @@ export default function FilterPage() {
     };
 
     const fetchData = () => {
-        console.log('SELECTED BREEDS', selectedBreeds)
+        // console.log('SELECTED BREEDS', selectedBreeds)
 
-        const quickTest = Array.from(selectedBreeds)
-        console.log('QUICK TEST', quickTest);
+        // const quickTest = Array.from(selectedBreeds)
+        // console.log('QUICK TEST', quickTest);
 
         const breedParams = Array.from(selectedBreeds)
             .map(breed => `breeds=${encodeURIComponent(breed)}`)
@@ -52,13 +58,22 @@ export default function FilterPage() {
 
         axios.get(url, { withCredentials: true })
             .then(response => {
-                console.log('RESPONSE DATAAAAAAAA', response.data)
+                console.log('GET RESPONSE DATA', response.data);
                 setResultIds(response.data.resultIds);
+                console.log('NEXT DATA', response.data.next)
+                setNextQuery(response.data.next); // set the next query
+                console.log('PREVIOUS DATA', response.data.prev)
+                setPrevQuery(response.data.prev); // set the previous query
             })
             .catch(error => {
                 console.error('Error fetching available breeds:', error);
             });
     };
+
+    // useEffect(() => {
+    //     console.log("Result IDs changed: ", resultIds);
+    //     console.log("Dog Details changed: ", dogDetails);
+    // }, [resultIds, dogDetails]);
 
     // const fetchData = () => {
     //     // Fetch resultIds
@@ -79,7 +94,7 @@ export default function FilterPage() {
             axios.post('https://frontend-take-home-service.fetch.com/dogs', resultIds, { withCredentials: true })
                 .then(response => {
                     setDogDetails(response.data);
-                    console.log('RESPONSE DATA', response.data)
+                    console.log('POST RESPONSE DATA', response.data)
                     console.log('DOG DETAILS', dogDetails);
                 })
                 .catch(error => {
@@ -92,6 +107,36 @@ export default function FilterPage() {
     const handleFilterChange = (newFilters) => {
         setFilters(newFilters);
         // Update your results based on the filters
+    };
+
+    const fetchNextPage = () => {
+        if (nextQuery) {
+            const fullNextUrl = `https://frontend-take-home-service.fetch.com${nextQuery}`;
+            axios.get(fullNextUrl, { withCredentials: true })
+                .then(response => {
+                    setResultIds(response.data.resultIds);
+                    setNextQuery(response.data.next);
+                    setPrevQuery(response.data.prev);
+                })
+                .catch(error => {
+                    console.error('Error fetching next page:', error);
+                });
+        }
+    };
+
+    const fetchPreviousPage = () => {
+        if (prevQuery) {
+            const fullPrevUrl = `https://frontend-take-home-service.fetch.com${prevQuery}`;
+            axios.get(fullPrevUrl, { withCredentials: true })
+                .then(response => {
+                    setResultIds(response.data.resultIds);
+                    setNextQuery(response.data.next);
+                    setPrevQuery(response.data.prev);
+                })
+                .catch(error => {
+                    console.error('Error fetching previous page:', error);
+                });
+        }
     };
 
     return (
@@ -145,9 +190,10 @@ export default function FilterPage() {
                         ))}
                     </div>
                 </main>
+
+                <button onClick={fetchNextPage} disabled={!nextQuery}>Next</button>
+                <button onClick={fetchPreviousPage} disabled={!prevQuery}>Previous</button>
             </div>
-
-
         </div>
     )
 }
