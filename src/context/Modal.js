@@ -22,12 +22,17 @@ export function ModalProvider({ children }) {
 
 
     const closeModal = () => {
+        console.log("Before closeModal: ", modalContent, onModalClose);
+
         setModalContent(null); //clear the modal contents
         //If callback function is truthy, call the callback function and reset it to null:
         if (typeof onModalClose === 'function') {
             setOnModalClose(null);
             onModalClose();
         }
+
+        console.log("After closeModal: ", modalContent, onModalClose);
+
         document.body.classList.remove('no-scroll');
     }
 

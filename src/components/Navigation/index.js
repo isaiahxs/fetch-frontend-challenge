@@ -69,6 +69,11 @@ export default function Navigation() {
         window.scrollTo({ top: 0, behavior: 'smooth' });
     };
 
+    const handleLogout = () => {
+        localStorage.removeItem('isLoggedIn');
+        // additional logout logic here
+    };
+
     return (
         <nav className='nav-bar'>
             <div className='nav-options'>

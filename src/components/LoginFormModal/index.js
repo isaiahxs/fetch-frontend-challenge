@@ -8,6 +8,9 @@ function LoginFormModal() {
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [errors, setErrors] = useState([]);
+    const [isVisible, setIsVisible] = useState(true);
+    const [isModalVisible, setModalVisible] = useState(localStorage.getItem('isLoggedIn') !== 'true');
+
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -25,7 +28,11 @@ function LoginFormModal() {
 
             // If successful, log the response and close the modal
             console.log('Login success:', response.data);
-            closeModal();
+            localStorage.setItem('isLoggedIn', 'true');
+            setModalVisible(false);
+            // closeModal();
+            // console.log('after closemodal');
+            // setIsVisible(false);
         } catch (error) {
             // If an error occurs, log it and set it into the errors state
             console.log('Login error:', error);
@@ -34,40 +41,44 @@ function LoginFormModal() {
     };
 
     return (
-        <div className='modal-overlay'>
-            <div className='modal'>
-                <h1 className='log-in-label'>Log In</h1>
-                <h2>Before you can adopt a new furry friend, you must sign in.</h2>
-                <form onSubmit={handleSubmit} className='log-in-form'>
-                    <ul className='error-message'>
-                        {errors.map((error, idx) => (
-                            <li key={idx}>{error}</li>
-                        ))}
-                    </ul>
-                    <label className='form-label'>
-                        Name
-                    </label>
-                    <input
-                        className='credential-input'
-                        type='text'
-                        value={name}
-                        onChange={(e) => setName(e.target.value)}
-                        required
-                    />
-                    <label className='form-label'>
-                        Email
-                    </label>
-                    <input
-                        className='credential-input'
-                        type='email'
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                        required
-                    />
-                    <button className='log-in-button' type='submit'>Log In</button>
-                </form>
-            </div>
-        </div>
+        <>
+            {isModalVisible && (
+                <div className='modal-overlay fade-in'>
+                    <div className='modal'>
+                        <h1 className='log-in-label'>Log In</h1>
+                        <h2>Before you can adopt a new furry friend, you must sign in.</h2>
+                        <form onSubmit={handleSubmit} className='log-in-form'>
+                            <ul className='error-message'>
+                                {errors.map((error, idx) => (
+                                    <li key={idx}>{error}</li>
+                                ))}
+                            </ul>
+                            <label className='form-label'>
+                                Name
+                            </label>
+                            <input
+                                className='credential-input'
+                                type='text'
+                                value={name}
+                                onChange={(e) => setName(e.target.value)}
+                                required
+                            />
+                            <label className='form-label'>
+                                Email
+                            </label>
+                            <input
+                                className='credential-input'
+                                type='email'
+                                value={email}
+                                onChange={(e) => setEmail(e.target.value)}
+                                required
+                            />
+                            <button className='log-in-button' type='submit'>Log In</button>
+                        </form>
+                    </div>
+                </div>
+            )}
+        </>
     );
 }
 
