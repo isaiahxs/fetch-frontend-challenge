@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useRef } from 'react';
 import Navigation from '../Navigation';
 import Footer from '../Footer';
+import './HomePage.css';
 
 export default function HomePage() {
     return (
@@ -8,8 +9,8 @@ export default function HomePage() {
             <Navigation />
 
             <div className='home-container'>
-                <h1 className='home-header syne'>Welcome to my Fetch Challenge</h1>
-                <h2>See how many points you could earn today!</h2>
+                <h1 className='home-header syne'>Welcome to my Front-End Fetch Challenge</h1>
+                <h2>Adopt a new member of your family today!</h2>
             </div>
 
             <Footer />
