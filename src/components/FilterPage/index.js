@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { FilterSidebar } from '../FilterSidebar';
+import { DogCard } from '../DogCard';
 import './FilterPage.css';
 
 export default function FilterPage() {
@@ -35,7 +37,7 @@ export default function FilterPage() {
 
     const handleCheckboxChange = (breed) => {
         const newSelectedBreeds = new Set(selectedBreeds);
-        console.log('NEW SELECTED BREEDS', newSelectedBreeds);
+        // console.log('NEW SELECTED BREEDS', newSelectedBreeds);
         if (newSelectedBreeds.has(breed)) {
             newSelectedBreeds.delete(breed);
         } else {
@@ -54,15 +56,15 @@ export default function FilterPage() {
             .map(breed => `breeds=${encodeURIComponent(breed)}`)
             .join('&');
         const url = `https://frontend-take-home-service.fetch.com/dogs/search?${breedParams}`;
-        console.log('THIS IS THE URL', url);
+        // console.log('THIS IS THE URL', url);
 
         axios.get(url, { withCredentials: true })
             .then(response => {
-                console.log('GET RESPONSE DATA', response.data);
+                // console.log('GET RESPONSE DATA', response.data);
                 setResultIds(response.data.resultIds);
-                console.log('NEXT DATA', response.data.next)
+                // console.log('NEXT DATA', response.data.next)
                 setNextQuery(response.data.next); // set the next query
-                console.log('PREVIOUS DATA', response.data.prev)
+                // console.log('PREVIOUS DATA', response.data.prev)
                 setPrevQuery(response.data.prev); // set the previous query
             })
             .catch(error => {
@@ -70,32 +72,13 @@ export default function FilterPage() {
             });
     };
 
-    // useEffect(() => {
-    //     console.log("Result IDs changed: ", resultIds);
-    //     console.log("Dog Details changed: ", dogDetails);
-    // }, [resultIds, dogDetails]);
-
-    // const fetchData = () => {
-    //     // Fetch resultIds
-    //     axios.get('https://frontend-take-home-service.fetch.com/dogs/search?breeds=Beagle', { withCredentials: true })
-    //         .then(response => {
-    //             console.log('to see what happens in the .then');
-    //             console.log('DATA RESULT IDS', response.data.resultIds);
-    //             setResultIds(response.data.resultIds);
-    //         })
-    //         .catch(error => {
-    //             console.error('Error fetching resultIds:', error);
-    //             console.error('Error Details:', error.response);
-    //         });
-    // }
-
     useEffect(() => {
         if (resultIds.length > 0) {
             axios.post('https://frontend-take-home-service.fetch.com/dogs', resultIds, { withCredentials: true })
                 .then(response => {
                     setDogDetails(response.data);
-                    console.log('POST RESPONSE DATA', response.data)
-                    console.log('DOG DETAILS', dogDetails);
+                    // console.log('POST RESPONSE DATA', response.data)
+                    // console.log('DOG DETAILS', dogDetails);
                 })
                 .catch(error => {
                     console.error('Error fetching dog details:', error);
@@ -148,45 +131,13 @@ export default function FilterPage() {
             <button className='search-button' onClick={fetchData}>Fetch Dogs</button>
 
             <div className="filter-page-content">
-                <aside className="filter-sidebar">
-                    <h2>Filters</h2>
-                    <div>
-                        <button className='dropdown-button' onClick={toggleShowBreeds}>
-                            Breeds {showBreeds ? '▲' : '▼'}
-                        </button>
-                        {showBreeds && (
-                            <div className='options'>
-                                {availableBreeds.map((breed, index) => (
-                                    <label className='dropdown-options' key={index}>
-                                        <input
-                                            className='dropdown-checkbox'
-                                            type="checkbox"
-                                            value={breed}
-                                            onChange={() => handleCheckboxChange(breed)}
-                                        />
-                                        <p className='dropdown-text'>
-                                            {breed}
-                                        </p>
-
-                                    </label>
-                                ))}
-                            </div>
-                        )}
-                    </div>
-                </aside>
+                <FilterSidebar availableBreeds={availableBreeds} handleCheckboxChange={handleCheckboxChange} toggleShowBreeds={toggleShowBreeds} showBreeds={showBreeds} />
 
                 <main className="filter-results">
                     <h2>Results</h2>
                     <div>
                         {dogDetails.map((dog, index) => (
-                            <div key={dog.id || index} className="dog-card">
-                                <img src={dog.img} className='dog-picture' alt={`${dog.name} picture`} />
-                                <div className='section-under-picture'>
-                                    <p>Name: {dog.name}</p>
-                                    <p>Age: {dog.age}</p>
-                                    <p>Breed: {dog.breed}</p>
-                                </div>
-                            </div>
+                            <DogCard dog={dog} key={index} />
                         ))}
                     </div>
                 </main>

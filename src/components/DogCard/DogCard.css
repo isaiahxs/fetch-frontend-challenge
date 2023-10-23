@@ -1,0 +1,19 @@
+.dog-card {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    height: auto;
+    width: 350px;
+    border: 2px solid #300d38;
+    margin-bottom: 20px;
+    background-color:
+        #fee3ba;
+}
+
+.dog-picture {
+    border-bottom: 2px solid #300d38;
+}
+
+.section-under-picture {
+    padding: 10px;
+}
