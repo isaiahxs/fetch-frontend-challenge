@@ -5,6 +5,7 @@ import { Link, useLocation } from 'react-router-dom';
 import black_dog from '../../assets/icons/black-dog.png';
 import logo_footer from '../../assets/icons/logo-footer.png';
 import hamburger from '../../assets/icons/hamburger.png';
+import axios from 'axios';
 import './Navigation.css'
 
 export default function Navigation() {
@@ -69,9 +70,15 @@ export default function Navigation() {
         window.scrollTo({ top: 0, behavior: 'smooth' });
     };
 
-    const handleLogout = () => {
-        localStorage.removeItem('isLoggedIn');
-        // additional logout logic here
+    const handleLogout = async () => {
+        try {
+            await axios.post('https://frontend-take-home-service.fetch.com/auth/logout', {}, { withCredentials: true });
+            console.log('Logout success');
+            localStorage.removeItem('isLoggedIn'); // Remove the flag from local storage
+            // Code to update the isModalVisible state in LoginFormModal
+        } catch (error) {
+            console.log('Logout error:', error);
+        }
     };
 
     return (
@@ -141,6 +148,16 @@ export default function Navigation() {
                                     </div>
                                 </button>
                             </a>
+                        </div>
+
+                        <div>
+                            <button className='nav-button panel-button' onClick={handleLogout}>
+                                <div>
+                                    <p className='footer-icon-description'>
+                                        Log Out
+                                    </p>
+                                </div>
+                            </button>
                         </div>
 
                         {/* <div>

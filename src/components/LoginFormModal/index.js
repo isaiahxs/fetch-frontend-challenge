@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useModal } from '../../context/Modal';
 import axios from 'axios';
 import './LoginFormModal.css';
 
 function LoginFormModal() {
+    // localStorage.removeItem('isLoggedIn');
     const { closeModal } = useModal();
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
@@ -24,7 +25,7 @@ function LoginFormModal() {
 
         try {
             // Make the POST request to /auth/login
-            const response = await axios.post('https://frontend-take-home-service.fetch.com/auth/login', postData);
+            const response = await axios.post('https://frontend-take-home-service.fetch.com/auth/login', postData, { withCredentials: true });
 
             // If successful, log the response and close the modal
             console.log('Login success:', response.data);
