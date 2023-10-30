@@ -23,6 +23,22 @@ export default function HomePage() {
     const content = currentLanguage === 'english' ? englishContent : spanishContent;
 
     useEffect(() => {
+        const updateModalVisibility = () => {
+            setModalVisible(localStorage.getItem('isLoggedIn') !== 'true');
+        };
+
+        // Initial call to set the state
+        updateModalVisibility();
+
+        // Listen to storage changes
+        window.addEventListener('storage', updateModalVisibility);
+
+        return () => {
+            window.removeEventListener('storage', updateModalVisibility);
+        };
+    }, []);
+
+    useEffect(() => {
         const observer = new IntersectionObserver(
             (entries, observer) => {
                 entries.forEach((entry) => {
@@ -57,6 +73,10 @@ export default function HomePage() {
             if (loginRef.current) {
                 observer.unobserve(loginRef.current);
             }
+
+            if (footerRef.current) {
+                observer.unobserve(footerRef.current);
+            }
         };
     }, []);
 
@@ -69,7 +89,7 @@ export default function HomePage() {
             <Hero />
 
             {localStorage.getItem('isLoggedIn') !== 'true' && (
-                <div ref={loginRef} className='body-fade-in' id='log-in-section'>
+                <div ref={loginRef} id='log-in-section'>
                     <LoginFormModal isModalVisible={isModalVisible} setModalVisible={setModalVisible} />
                 </div>
             )}
