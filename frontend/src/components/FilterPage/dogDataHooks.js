@@ -23,12 +23,14 @@ export const useFetchDogs = (selectedBreeds) => {
     const [prevQuery, setPrevQuery] = useState(null);
 
     useEffect(() => {
+        const sortParam = 'sort=breed:asc'; //for ascending order (a-z)
+
         if (selectedBreeds.size > 0) {
             // Fetching logic goes here
             const breedParams = Array.from(selectedBreeds)
                 .map(breed => `breeds=${encodeURIComponent(breed)}`)
                 .join('&');
-            const url = `https://frontend-take-home-service.fetch.com/dogs/search?${breedParams}`;
+            const url = `https://frontend-take-home-service.fetch.com/dogs/search?${breedParams}&${sortParam}`;
 
             axios.get(url, { withCredentials: true })
                 .then(response => {

@@ -44,22 +44,19 @@ export default function FilterPage() {
     };
 
     const fetchData = () => {
-        // console.log('SELECTED BREEDS', selectedBreeds)
-
-        // const quickTest = Array.from(selectedBreeds)
-        // console.log('QUICK TEST', quickTest);
-
         const breedParams = Array.from(selectedBreeds)
             .map(breed => `breeds=${encodeURIComponent(breed)}`)
             .join('&');
-        const url = `https://frontend-take-home-service.fetch.com/dogs/search?${breedParams}`;
-        // console.log('THIS IS THE URL', url);
+
+        const sortParam = 'sort=breed:asc'; //for ascending order (a-z)
+
+        const url = `https://frontend-take-home-service.fetch.com/dogs/search?${breedParams}&${sortParam}`;
 
         axios.get(url, { withCredentials: true })
             .then(response => {
                 setResultIds(response.data.resultIds);
-                setNextQuery(response.data.next); // set the next query
-                setPrevQuery(response.data.prev); // set the previous query
+                setNextQuery(response.data.next);
+                setPrevQuery(response.data.prev);
                 setCurrentPage(1);
                 setTotalResults(response.data.total);
             })
