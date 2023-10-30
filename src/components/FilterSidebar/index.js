@@ -3,7 +3,7 @@ import './FilterSidebar.css';
 export const FilterSidebar = ({ availableBreeds, handleCheckboxChange, toggleShowBreeds, showBreeds }) => {
     return (
         <aside className="filter-sidebar">
-            <h2>Filters</h2>
+            <h2 className='filter-page-header'>Filters</h2>
             <button className='dropdown-button' onClick={toggleShowBreeds}>
                 Breeds {showBreeds ? '▲' : '▼'}
             </button>

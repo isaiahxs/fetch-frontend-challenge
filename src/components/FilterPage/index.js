@@ -3,6 +3,7 @@ import axios from 'axios';
 import { FilterSidebar } from '../FilterSidebar';
 import { DogCard } from '../DogCard';
 import { useFetchBreeds, useFetchDogs } from './dogDataHooks';
+import { PaginationButtons } from '../PaginationButtons';
 import './FilterPage.css';
 
 export default function FilterPage() {
@@ -112,25 +113,42 @@ export default function FilterPage() {
     return (
         <div className="filter-page">
             <header className="filter-page-header">
-                <h1>Find Your Pet</h1>
+                <h1>Find your pet today!</h1>
             </header>
 
             <button className='search-button' onClick={fetchData}>Fetch Dogs</button>
 
             <div className="filter-page-content">
-                <FilterSidebar availableBreeds={availableBreeds} handleCheckboxChange={handleCheckboxChange} toggleShowBreeds={toggleShowBreeds} showBreeds={showBreeds} />
+
+                <FilterSidebar
+                    availableBreeds={availableBreeds}
+                    handleCheckboxChange={handleCheckboxChange}
+                    toggleShowBreeds={toggleShowBreeds}
+                    showBreeds={showBreeds}
+                />
 
                 <main className="filter-results">
-                    <h2>Results</h2>
-                    <div>
+                    <h2 className="filter-page-header">Results</h2>
+                    <PaginationButtons
+                        nextQuery={nextQuery}
+                        prevQuery={prevQuery}
+                        fetchNextPage={fetchNextPage}
+                        fetchPreviousPage={fetchPreviousPage}
+                    />
+                    <div className='results-list'>
                         {dogDetails.map((dog, index) => (
                             <DogCard dog={dog} key={index} />
                         ))}
                     </div>
                 </main>
 
-                <button onClick={fetchNextPage} disabled={!nextQuery}>Next</button>
-                <button onClick={fetchPreviousPage} disabled={!prevQuery}>Previous</button>
+                <PaginationButtons
+                    className='second-pagination-buttons'
+                    nextQuery={nextQuery}
+                    prevQuery={prevQuery}
+                    fetchNextPage={fetchNextPage}
+                    fetchPreviousPage={fetchPreviousPage}
+                />
             </div>
         </div>
     )

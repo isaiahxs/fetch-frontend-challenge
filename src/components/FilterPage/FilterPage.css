@@ -2,10 +2,14 @@
     margin-top: 120px;
 }
 
-.filter-page-header {}
+.filter-page-header {
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
 
 .filter-page-content {
     display: flex;
+    flex-direction: column;
 }
 
 
@@ -17,3 +21,10 @@
 .dropdown-button {
     width: 200px;
 }
+
+/* .results-list {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: auto;
+} */
