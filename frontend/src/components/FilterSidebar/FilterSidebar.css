@@ -1,0 +1,30 @@
+.filter-sidebar {
+    flex: 1;
+}
+
+.dropdown-options {
+    background-color: #f0f0f0;
+    display: flex;
+    text-align: left;
+    /* border-top: 2px solid black; */
+    border-left: 2px solid black;
+    border-right: 2px solid black;
+    /* height: 300px; */
+}
+
+.dropdown-options:not(:first-child) {
+    border-top: 2px solid black;
+}
+
+.dropdown-text {
+    /* border-top: 2px solid black; */
+}
+
+.options {
+    border-top: 2px solid black;
+    border-bottom: 2px solid black;
+    border-right: 2px solid black;
+    height: 300px;
+    overflow-y: scroll;
+    width: 300px;
+}

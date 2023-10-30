@@ -1,0 +1,72 @@
+.body-fade-in {
+    opacity: 0;
+    transform: translateY(25px);
+    transition: opacity 1s ease-out, transform 1s ease-out;
+}
+
+.body-fade-in.show {
+    opacity: 1;
+    transform: translateY(0px);
+}
+
+.home-container {
+    margin: auto;
+    border-radius: 20px;
+    max-width: 700px;
+    padding: 20px;
+    z-index: 1;
+}
+
+.home-header {
+    color: black;
+    font-size: 3.3rem;
+    font-weight: 700;
+    margin-top: 100px;
+    margin-bottom: 20px;
+}
+
+.divider-line {
+    height: 1px;
+    background-color: white;
+    color: red;
+}
+
+.input-form {
+    display: flex;
+    justify-content: center;
+}
+
+.input-section {
+    width: 750px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.input-field {
+    width: 85%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    max-height: 200px !important;
+    resize: none;
+    font-size: 1.1rem;
+}
+
+.signed-in-home-message {
+    display: flex;
+    flex-direction: column;
+    width: 300px;
+    margin: auto;
+    margin-bottom: 20px;
+    font-size: 1.4rem;
+}
+
+.start-looking-button {
+    display: flex;
+    justify-content: center;
+    margin: auto;
+    width: 200px;
+    margin-top: 10px;
+}
