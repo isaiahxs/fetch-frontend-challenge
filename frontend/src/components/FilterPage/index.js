@@ -141,6 +141,7 @@ export default function FilterPage() {
                     handleCheckboxChange={handleCheckboxChange}
                     toggleShowBreeds={toggleShowBreeds}
                     showBreeds={showBreeds}
+                    selectedBreeds={selectedBreeds}
                 />
 
                 <main className="filter-results">
