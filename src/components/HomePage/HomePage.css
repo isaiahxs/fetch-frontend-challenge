@@ -53,3 +53,20 @@
     resize: none;
     font-size: 1.1rem;
 }
+
+.signed-in-home-message {
+    display: flex;
+    flex-direction: column;
+    width: 300px;
+    margin: auto;
+    margin-bottom: 20px;
+    font-size: 1.4rem;
+}
+
+.start-looking-button {
+    display: flex;
+    justify-content: center;
+    margin: auto;
+    width: 200px;
+    margin-top: 10px;
+}

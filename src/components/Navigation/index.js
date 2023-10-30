@@ -17,7 +17,13 @@ export default function Navigation({ isModalVisible, setModalVisible }) {
     const location = useLocation();
     // const [isModalVisible, setModalVisible] = useState(localStorage.getItem('isLoggedIn') !== 'true');
     const navigate = useNavigate()
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
 
+    // Read from localStorage once when the component mounts
+    // useEffect(() => {
+    //     const loggedInStatus = localStorage.getItem('isLoggedIn');
+    //     setIsLoggedIn(loggedInStatus === 'true');
+    // }, []);
 
     const navRef = useRef();
     const [isNavOpen, setIsNavOpen] = useState(false);
@@ -157,15 +163,18 @@ export default function Navigation({ isModalVisible, setModalVisible }) {
                             </a>
                         </div>
 
-                        <div>
-                            <button className='nav-button panel-button' onClick={handleLogout}>
-                                <div>
-                                    <p className='footer-icon-description'>
-                                        Log Out
-                                    </p>
-                                </div>
-                            </button>
-                        </div>
+                        {/* {isLoggedIn && ( */}
+                        {localStorage.getItem('isLoggedIn') === 'true' && (
+                            <div>
+                                <button className='nav-button panel-button' onClick={handleLogout}>
+                                    <div>
+                                        <p className='footer-icon-description'>
+                                            Log Out
+                                        </p>
+                                    </div>
+                                </button>
+                            </div>
+                        )}
 
                         {/* <div>
                             <button className='language-toggle-button panel-language-button' onClick={toggleLanguage}>

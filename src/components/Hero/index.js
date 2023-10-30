@@ -22,24 +22,24 @@ export default function Hero() {
 
     const scrollToSection = (sectionId) => {
         const sectionElement = document.getElementById(sectionId);
-        const yOffset = -100;
+        const yOffset = -115;
         const topOffset = sectionElement.getBoundingClientRect().top + window.scrollY + yOffset;
         window.scrollTo({ top: topOffset, behavior: 'smooth' });
     };
+
+    const handleClick = async (e) => {
+        navigate('/filter')
+    }
 
     return (
         <header className='header-container'>
             <div className='hero-section'>
                 <div className='hero-information'>
-                    {/* <button className='language-toggle-button' onClick={toggleLanguage}>
-                        {currentLanguage === 'english' ? 'Español' : 'English'}
-                    </button> */}
                     <h1 className='title fade1'>{content.title}</h1>
                     <h2 className='location fade1'>{content.location}</h2>
                     <button className='hero-language-toggle-button fade1' onClick={toggleLanguage}>
                         {currentLanguage === 'english' ? 'Español' : 'English'}
                     </button>
-                    {/* <h3 className='description'>Experience the beauty and elegance of our salon.</h3> */}
 
                     <div className='hero-descriptions-container fade2'>
                         <h3 className='description'>
@@ -60,13 +60,21 @@ export default function Hero() {
                     </div>
 
                     <div className='hero-buttons-container fade2'>
-                        <button className='view-services-hero' onClick={() => navigate('/filter')}>
-                            {content.viewPets}
-                        </button>
+                        {localStorage.getItem('isLoggedIn') !== 'true' && (
+                            <button className='view-services-hero' onClick={() => scrollToSection('log-in-section')}>
+                                {content.login}
+                            </button>
+                        )}
 
-                        <button className='view-gallery-hero' onClick={() => scrollToSection('gallery')}>
+                        {localStorage.getItem('isLoggedIn') === 'true' && (
+                            <button className='view-services-hero' onClick={handleClick}>
+                                {content.viewPets}
+                            </button>
+                        )}
+
+                        {/* <button className='view-gallery-hero' onClick={() => scrollToSection('gallery')}>
                             {content.viewGallery}
-                        </button>
+                        </button> */}
                     </div>
                 </div>
 

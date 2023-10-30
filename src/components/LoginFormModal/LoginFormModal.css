@@ -1,3 +1,18 @@
+.login-form-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.login-form {
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    width: 450px;
+    border: 2px solid #300d38;
+    background-color: #fee3ba;
+}
+
 .log-in-label {
     display: flex;
     justify-content: center;
@@ -8,7 +23,22 @@
 
 .form-label {
     display: block;
-    margin-bottom: 3px;
+    margin-bottom: 5px;
+}
+
+.form-sections {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.credential-input {
+    display: flex;
+    justify-content: center;
+    margin: auto;
+    margin-bottom: 15px;
+    width: 250px;
+    border: 2px solid black;
 }
 
 .demo-user {
@@ -18,11 +48,13 @@
     align-items: center;
 }
 
-.log-in-button-container {
-    margin-top: 5px;
+.log-in-button {
     display: flex;
     justify-content: center;
     align-items: center;
+    margin: auto;
+    margin-top: 5px;
+    width: 175px;
 }
 
 .modal-overlay {
@@ -36,7 +68,6 @@
     justify-content: center;
     align-items: center;
     z-index: 1000;
-    /* overflow-y: hidden; */
 }
 
 .modal {
