@@ -23,6 +23,12 @@ export default function FilterPage() {
     const [pageSize, setPageSize] = useState(25); // The number of results to fetch per request
     const [sortOrder, setSortOrder] = useState('asc'); // Sort order
 
+    const [currentPage, setCurrentPage] = useState(1);
+    const [totalResults, setTotalResults] = useState(0);
+
+    const X = (currentPage - 1) * pageSize + 1;
+    const Y = Math.min(currentPage * pageSize, totalResults);
+
     const toggleShowBreeds = () => {
         setShowBreeds(!showBreeds);
     }
@@ -54,6 +60,8 @@ export default function FilterPage() {
                 setResultIds(response.data.resultIds);
                 setNextQuery(response.data.next); // set the next query
                 setPrevQuery(response.data.prev); // set the previous query
+                setCurrentPage(1);
+                setTotalResults(response.data.total);
             })
             .catch(error => {
                 console.error('Error fetching available breeds:', error);
@@ -80,6 +88,10 @@ export default function FilterPage() {
         // Update your results based on the filters
     };
 
+    useEffect(() => {
+        fetchData();
+    }, [selectedBreeds]);
+
     const fetchNextPage = () => {
         if (nextQuery) {
             const fullNextUrl = `https://frontend-take-home-service.fetch.com${nextQuery}`;
@@ -88,6 +100,8 @@ export default function FilterPage() {
                     setResultIds(response.data.resultIds);
                     setNextQuery(response.data.next);
                     setPrevQuery(response.data.prev);
+                    setCurrentPage(currentPage + 1);
+                    setTotalResults(response.data.total);
                 })
                 .catch(error => {
                     console.error('Error fetching next page:', error);
@@ -103,6 +117,8 @@ export default function FilterPage() {
                     setResultIds(response.data.resultIds);
                     setNextQuery(response.data.next);
                     setPrevQuery(response.data.prev);
+                    setCurrentPage(currentPage - 1);
+                    setTotalResults(response.data.total);
                 })
                 .catch(error => {
                     console.error('Error fetching previous page:', error);
@@ -129,6 +145,9 @@ export default function FilterPage() {
 
                 <main className="filter-results">
                     <h2 className="filter-page-header">Results</h2>
+                    <div>
+                        Showing {X} - {Y} out of {totalResults} total
+                    </div>
                     <PaginationButtons
                         nextQuery={nextQuery}
                         prevQuery={prevQuery}
