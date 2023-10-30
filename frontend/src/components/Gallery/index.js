@@ -14,12 +14,6 @@ export default function Gallery() {
     return (
         <div className='gallery-section'>
             <h2 className='gallery-header'>Our Gallery</h2>
-            {/* <h3 className='gallery-subheading'>
-                {content.subheader}
-                <a className='view-more-ig' href='' target='_blank' rel='noopener noreferrer'>
-                    some subheader here
-                </a>
-            </h3> */}
 
             <section className='gallery-1'>
                 <div className='slider'>
@@ -74,60 +68,6 @@ export default function Gallery() {
                     </div>
                 </div>
             </section>
-
-            {/* <section className='gallery-2'>
-                <div className='slider'>
-                    <div className='slide-track'>
-                        <div className='img-container slide'>
-                            <img className='slide-img' src={Darron} alt='Slide Image' />
-                        </div>
-
-                        <div className='img-container slide'>
-                            <img className='slide-img' src={Kayli} alt='Slide Image' />
-                        </div>
-
-                        <div className='img-container slide'>
-                            <img className='slide-img' src={Keagan} alt='Slide Image' />
-                        </div>
-
-                        <div className='img-container slide'>
-                            <img className='slide-img' src={Lisa} alt='Slide Image' />
-                        </div>
-
-                        <div className='img-container slide'>
-                            <img className='slide-img' src={Darron} alt='Slide Image' />
-                        </div>
-
-                        <div className='img-container slide'>
-                            <img className='slide-img' src={Kayli} alt='Slide Image' />
-                        </div>
-
-                        <div className='img-container slide'>
-                            <img className='slide-img' src={Keagan} alt='Slide Image' />
-                        </div>
-
-                        <div className='img-container slide'>
-                            <img className='slide-img' src={Lisa} alt='Slide Image' />
-                        </div>
-
-                        <div className='img-container slide'>
-                            <img className='slide-img' src={Darron} alt='Slide Image' />
-                        </div>
-
-                        <div className='img-container slide'>
-                            <img className='slide-img' src={Kayli} alt='Slide Image' />
-                        </div>
-
-                        <div className='img-container slide'>
-                            <img className='slide-img' src={Keagan} alt='Slide Image' />
-                        </div>
-
-                        <div className='img-container slide'>
-                            <img className='slide-img' src={Lisa} alt='Slide Image' />
-                        </div>
-                    </div>
-                </div>
-            </section> */}
         </div>
     )
 }
