@@ -4,12 +4,10 @@ import { FilterSidebar } from '../FilterSidebar';
 import { DogCard } from '../DogCard';
 import { useFetchBreeds } from './Hooks/useFetchBreeds';
 import { usePagination } from './Hooks/usePagination';
-import { PaginationButtons } from '../PaginationButtons';
 import './FilterPage.css';
 
 export default function FilterPage() {
     const [filters, setFilters] = useState({});
-    // const [results, setResults] = useState([]);
 
     const [availableBreeds, setAvailableBreeds] = useFetchBreeds();
     const [selectedBreeds, setSelectedBreeds] = useState(new Set());
@@ -103,26 +101,17 @@ export default function FilterPage() {
                     <div>
                         Showing {X} - {Y} out of {totalResults} total
                     </div>
-                    <PaginationButtons
-                        nextQuery={nextQuery}
-                        prevQuery={prevQuery}
-                        fetchNextPage={fetchNextPage}
-                        fetchPreviousPage={fetchPreviousPage}
-                    />
+                    <div className='pagination-buttons second-pagination-buttons'>
+                        <button className='previous-page-button' onClick={fetchPreviousPage} disabled={!prevQuery}>Previous</button>
+                        <button className='next-page-button' onClick={fetchNextPage} disabled={!nextQuery || Y >= totalResults}>Next</button>
+                    </div>
+
                     <div className='results-list'>
                         {dogDetails.map((dog, index) => (
                             <DogCard dog={dog} key={index} />
                         ))}
                     </div>
                 </main>
-
-                <PaginationButtons
-                    className='second-pagination-buttons'
-                    nextQuery={nextQuery}
-                    prevQuery={prevQuery}
-                    fetchNextPage={fetchNextPage}
-                    fetchPreviousPage={fetchPreviousPage}
-                />
             </div>
         </div>
     )

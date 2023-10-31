@@ -28,7 +28,7 @@ export const usePagination = () => {
 
     const fetchPreviousPage = () => {
         if (prevQuery) {
-            const fullPrevUrl = `https://frontend-take-home-service.fetch.com${nextQuery}`;
+            const fullPrevUrl = `https://frontend-take-home-service.fetch.com${prevQuery}`;
             axios.get(fullPrevUrl, { withCredentials: true })
                 .then(response => {
                     setResultIds(response.data.resultIds);
