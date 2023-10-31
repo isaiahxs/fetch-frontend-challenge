@@ -5,15 +5,19 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { ModalProvider, Modal } from './context/Modal';
 import { LanguageProvider } from './LanguageContext';
+import { Provider } from 'react-redux';
+import store from './store/index';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <ModalProvider>
-      <LanguageProvider>
-        <App />
-      </LanguageProvider>
-    </ModalProvider>
+    <Provider store={store}>
+      <ModalProvider>
+        <LanguageProvider>
+          <App />
+        </LanguageProvider>
+      </ModalProvider>
+    </Provider>
   </React.StrictMode>
 );
 
