@@ -2,29 +2,24 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { FilterSidebar } from '../FilterSidebar';
 import { DogCard } from '../DogCard';
-import { useFetchBreeds, useFetchDogs } from './dogDataHooks';
+import { useFetchBreeds } from './Hooks/useFetchBreeds';
+import { usePagination } from './Hooks/usePagination';
 import { PaginationButtons } from '../PaginationButtons';
 import './FilterPage.css';
 
 export default function FilterPage() {
     const [filters, setFilters] = useState({});
-    const [results, setResults] = useState([]);
+    // const [results, setResults] = useState([]);
 
     const [availableBreeds, setAvailableBreeds] = useFetchBreeds();
-
     const [selectedBreeds, setSelectedBreeds] = useState(new Set());
 
-    const { resultIds, setResultIds, nextQuery, setNextQuery, prevQuery, setPrevQuery } = useFetchDogs(selectedBreeds);
-
     const [dogDetails, setDogDetails] = useState([]);
-
     const [showBreeds, setShowBreeds] = useState(false);
-
     const [pageSize, setPageSize] = useState(25); // The number of results to fetch per request
     const [sortOrder, setSortOrder] = useState('asc'); // Sort order
 
-    const [currentPage, setCurrentPage] = useState(1);
-    const [totalResults, setTotalResults] = useState(0);
+    const { currentPage, setCurrentPage, totalResults, setTotalResults, fetchNextPage, fetchPreviousPage, resultIds, setResultIds, nextQuery, setNextQuery, prevQuery, setPrevQuery } = usePagination();
 
     const X = (currentPage - 1) * pageSize + 1;
     const Y = Math.min(currentPage * pageSize, totalResults);
@@ -48,7 +43,8 @@ export default function FilterPage() {
             .map(breed => `breeds=${encodeURIComponent(breed)}`)
             .join('&');
 
-        const sortParam = 'sort=breed:asc'; //for ascending order (a-z)
+        // const sortParam = 'sort=breed:asc'; //for ascending order (a-z)
+        const sortParam = `sort=breed:${sortOrder}`;
 
         const url = `https://frontend-take-home-service.fetch.com/dogs/search?${breedParams}&${sortParam}`;
 
@@ -70,8 +66,6 @@ export default function FilterPage() {
             axios.post('https://frontend-take-home-service.fetch.com/dogs', resultIds, { withCredentials: true })
                 .then(response => {
                     setDogDetails(response.data);
-                    // console.log('POST RESPONSE DATA', response.data)
-                    // console.log('DOG DETAILS', dogDetails);
                 })
                 .catch(error => {
                     console.error('Error fetching dog details:', error);
@@ -82,45 +76,6 @@ export default function FilterPage() {
     // Update whenever a filter is applied
     const handleFilterChange = (newFilters) => {
         setFilters(newFilters);
-        // Update your results based on the filters
-    };
-
-    useEffect(() => {
-        fetchData();
-    }, [selectedBreeds]);
-
-    const fetchNextPage = () => {
-        if (nextQuery) {
-            const fullNextUrl = `https://frontend-take-home-service.fetch.com${nextQuery}`;
-            axios.get(fullNextUrl, { withCredentials: true })
-                .then(response => {
-                    setResultIds(response.data.resultIds);
-                    setNextQuery(response.data.next);
-                    setPrevQuery(response.data.prev);
-                    setCurrentPage(currentPage + 1);
-                    setTotalResults(response.data.total);
-                })
-                .catch(error => {
-                    console.error('Error fetching next page:', error);
-                });
-        }
-    };
-
-    const fetchPreviousPage = () => {
-        if (prevQuery) {
-            const fullPrevUrl = `https://frontend-take-home-service.fetch.com${prevQuery}`;
-            axios.get(fullPrevUrl, { withCredentials: true })
-                .then(response => {
-                    setResultIds(response.data.resultIds);
-                    setNextQuery(response.data.next);
-                    setPrevQuery(response.data.prev);
-                    setCurrentPage(currentPage - 1);
-                    setTotalResults(response.data.total);
-                })
-                .catch(error => {
-                    console.error('Error fetching previous page:', error);
-                });
-        }
     };
 
     return (
@@ -139,6 +94,8 @@ export default function FilterPage() {
                     toggleShowBreeds={toggleShowBreeds}
                     showBreeds={showBreeds}
                     selectedBreeds={selectedBreeds}
+                    sortOrder={sortOrder}
+                    setSortOrder={setSortOrder}
                 />
 
                 <main className="filter-results">
