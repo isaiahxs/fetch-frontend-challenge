@@ -12,7 +12,9 @@ import { usePagination } from './Hooks/usePagination';
 import './FilterPage.css';
 
 export default function FilterPage() {
-    const [dogDetails, setDogDetails] = useState([]);
+    const [allDogs, setAllDogs] = useState([]);
+    const [allFetchedDogs, setAllFetchedDogs] = useState([]);
+
     const [pageSize, setPageSize] = useState(25); // The number of results to fetch per request
     const [sortOrder, setSortOrder] = useState('asc'); // Sort order
 
@@ -20,6 +22,16 @@ export default function FilterPage() {
     const [selectedBreeds, setSelectedBreeds] = useState(new Set());
     const [favorites, setFavorites] = useState(new Set());
 
+    useEffect(() => {
+        localStorage.setItem('favorites', JSON.stringify(Array.from(favorites)));
+    }, [favorites]);
+
+    useEffect(() => {
+        const storedFavorites = localStorage.getItem('favorites');
+        if (storedFavorites) {
+            setFavorites(new Set(JSON.parse(storedFavorites)));
+        }
+    }, []);
 
     const [availableBreeds, setAvailableBreeds] = useFetchBreeds();
 
@@ -57,7 +69,8 @@ export default function FilterPage() {
         if (resultIds.length > 0) {
             axios.post('https://frontend-take-home-service.fetch.com/dogs', resultIds, { withCredentials: true })
                 .then(response => {
-                    setDogDetails(response.data);
+                    setAllDogs(response.data);
+                    setAllFetchedDogs(prevDogs => [...new Set([...prevDogs, ...response.data])]);
                 })
                 .catch(error => {
                     console.error('Error fetching dog details:', error);
@@ -89,12 +102,14 @@ export default function FilterPage() {
                     />
 
                     <FavoritesFilter
+                        allFetchedDogs={allFetchedDogs}
                         favorites={favorites}
-                        allDogs={dogDetails}
+                        setFavorites={setFavorites}
                     />
                 </aside>
 
                 <main className="filter-results">
+
                     <h2 className="filter-page-header">Results</h2>
                     {totalResults > 0 &&
                         <>
@@ -112,16 +127,23 @@ export default function FilterPage() {
                             Showing {X - 1} - {Y} out of {totalResults} total
                         </div>
                     }
+
                     <div className='pagination-buttons second-pagination-buttons'>
                         <button className='previous-page-button' onClick={fetchPreviousPage} disabled={!prevQuery}>Previous</button>
                         <button className='next-page-button' onClick={fetchNextPage} disabled={!nextQuery || Y >= totalResults}>Next</button>
                     </div>
 
                     <div className='results-list'>
-                        {dogDetails.map((dog, index) => (
-                            <DogCard dog={dog} favorites={favorites} setFavorites={setFavorites} key={index} />
+                        {allDogs.map((dog, index) => (
+                            <DogCard
+                                dog={dog}
+                                key={index}
+                                favorites={favorites}
+                                setFavorites={setFavorites}
+                            />
                         ))}
                     </div>
+
                 </main>
             </div>
         </div>
