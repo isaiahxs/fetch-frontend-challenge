@@ -2,6 +2,10 @@
     flex: 1;
 }
 
+.breed-filter-section {
+    position: relative
+}
+
 .dropdown-options {
     background-color: #f0f0f0;
     display: flex;
@@ -27,4 +31,17 @@
     height: 300px;
     overflow-y: scroll;
     width: 300px;
+    position: absolute;
+    top: 100%;
+    left: 0 !important;
+    z-index: 1;
+}
+
+/* .favorites-dropdown, */
+.order-dropdown {
+    margin-bottom: 20px;
+}
+
+.favorites-dropdown {
+    margin-top: 20px;
 }

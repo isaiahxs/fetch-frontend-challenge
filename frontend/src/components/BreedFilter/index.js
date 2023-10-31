@@ -1,18 +1,9 @@
-import './FilterSidebar.css';
+import './BreedFilter.css';
 
-export const FilterSidebar = ({ availableBreeds, handleCheckboxChange, toggleShowBreeds, showBreeds, selectedBreeds, sortOrder, setSortOrder }) => {
+export const BreedFilter = ({ availableBreeds, handleCheckboxChange, toggleShowBreeds, showBreeds, selectedBreeds }) => {
+
     return (
-        <aside className="filter-sidebar">
-            <h2 className='filter-page-header'>Filters</h2>
-
-            <div>
-                <label>Sort by: </label>
-                <select value={sortOrder} onChange={(e) => setSortOrder(e.target.value)}>
-                    <option value="asc">Asc A-Z</option>
-                    <option value="desc">Desc Z-A</option>
-                </select>
-            </div>
-
+        <div className='breed-filter-section'>
             <button className='dropdown-button' onClick={toggleShowBreeds}>
                 Breeds {showBreeds ? '▲' : '▼'}
             </button>
@@ -35,7 +26,6 @@ export const FilterSidebar = ({ availableBreeds, handleCheckboxChange, toggleSho
                     ))}
                 </div>
             )}
-
-        </aside>
+        </div>
     )
 }

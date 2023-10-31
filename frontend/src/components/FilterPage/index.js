@@ -1,9 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { FilterSidebar } from '../FilterSidebar';
+
+import { BreedFilter } from '../BreedFilter';
 import { DogCard } from '../DogCard';
+import { FavoritesFilter } from '../FavoritesFilter';
+import { AlphabeticalFilter } from '../AlphabeticalFilter';
+
 import { useFetchBreeds } from './Hooks/useFetchBreeds';
 import { usePagination } from './Hooks/usePagination';
+
 import './FilterPage.css';
 
 export default function FilterPage() {
@@ -19,8 +24,11 @@ export default function FilterPage() {
 
     const { currentPage, setCurrentPage, totalResults, setTotalResults, fetchNextPage, fetchPreviousPage, resultIds, setResultIds, nextQuery, setNextQuery, prevQuery, setPrevQuery } = usePagination();
 
+    const [favorites, setFavorites] = useState(new Set());
+
     const X = (currentPage - 1) * pageSize + 1;
     const Y = Math.min(currentPage * pageSize, totalResults);
+    const totalPages = Math.ceil(totalResults / pageSize);
 
     const toggleShowBreeds = () => {
         setShowBreeds(!showBreeds);
@@ -86,21 +94,45 @@ export default function FilterPage() {
 
             <div className="filter-page-content">
 
-                <FilterSidebar
-                    availableBreeds={availableBreeds}
-                    handleCheckboxChange={handleCheckboxChange}
-                    toggleShowBreeds={toggleShowBreeds}
-                    showBreeds={showBreeds}
-                    selectedBreeds={selectedBreeds}
-                    sortOrder={sortOrder}
-                    setSortOrder={setSortOrder}
-                />
+                <aside className="filter-sidebar">
+                    <h2 className='filter-page-header'>Filters</h2>
+                    <AlphabeticalFilter
+                        sortOrder={sortOrder}
+                        setSortOrder={setSortOrder}
+                    />
+
+                    <BreedFilter
+                        availableBreeds={availableBreeds}
+                        handleCheckboxChange={handleCheckboxChange}
+                        toggleShowBreeds={toggleShowBreeds}
+                        showBreeds={showBreeds}
+                        selectedBreeds={selectedBreeds}
+                    />
+
+                    <FavoritesFilter
+                        favorites={favorites}
+                        allDogs={dogDetails}
+                    />
+                </aside>
 
                 <main className="filter-results">
                     <h2 className="filter-page-header">Results</h2>
-                    <div>
-                        Showing {X} - {Y} out of {totalResults} total
-                    </div>
+                    {totalResults > 0 &&
+                        <>
+                            <div className='results-header'>
+                                Showing {X} - {Y} out of {totalResults} total
+                            </div>
+                            <div className='page-count-header'>
+                                (Page {currentPage} of {totalPages})
+                            </div>
+                        </>
+                    }
+
+                    {totalResults === 0 &&
+                        <div className='results-header'>
+                            Showing {X - 1} - {Y} out of {totalResults} total
+                        </div>
+                    }
                     <div className='pagination-buttons second-pagination-buttons'>
                         <button className='previous-page-button' onClick={fetchPreviousPage} disabled={!prevQuery}>Previous</button>
                         <button className='next-page-button' onClick={fetchNextPage} disabled={!nextQuery || Y >= totalResults}>Next</button>
@@ -108,7 +140,7 @@ export default function FilterPage() {
 
                     <div className='results-list'>
                         {dogDetails.map((dog, index) => (
-                            <DogCard dog={dog} key={index} />
+                            <DogCard dog={dog} favorites={favorites} setFavorites={setFavorites} key={index} />
                         ))}
                     </div>
                 </main>

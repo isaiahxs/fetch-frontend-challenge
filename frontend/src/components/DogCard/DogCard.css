@@ -23,3 +23,8 @@
 .section-under-picture {
     padding: 10px;
 }
+
+.favorite-button {
+    width: 150px;
+    margin-top: 10px;
+}
