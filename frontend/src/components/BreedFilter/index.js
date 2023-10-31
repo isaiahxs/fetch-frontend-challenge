@@ -1,6 +1,23 @@
+import React, { useState, useEffect } from 'react';
 import './BreedFilter.css';
 
-export const BreedFilter = ({ availableBreeds, handleCheckboxChange, toggleShowBreeds, showBreeds, selectedBreeds }) => {
+export const BreedFilter = ({ availableBreeds, selectedBreeds, setSelectedBreeds }) => {
+
+    const [showBreeds, setShowBreeds] = useState(false);
+
+    const handleCheckboxChange = (breed) => {
+        const newSelectedBreeds = new Set(selectedBreeds);
+        if (newSelectedBreeds.has(breed)) {
+            newSelectedBreeds.delete(breed);
+        } else {
+            newSelectedBreeds.add(breed);
+        }
+        setSelectedBreeds(newSelectedBreeds);
+    };
+
+    const toggleShowBreeds = () => {
+        setShowBreeds(!showBreeds);
+    }
 
     return (
         <div className='breed-filter-section'>

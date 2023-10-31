@@ -12,37 +12,23 @@ import { usePagination } from './Hooks/usePagination';
 import './FilterPage.css';
 
 export default function FilterPage() {
-    const [filters, setFilters] = useState({});
-
-    const [availableBreeds, setAvailableBreeds] = useFetchBreeds();
-    const [selectedBreeds, setSelectedBreeds] = useState(new Set());
-
     const [dogDetails, setDogDetails] = useState([]);
-    const [showBreeds, setShowBreeds] = useState(false);
     const [pageSize, setPageSize] = useState(25); // The number of results to fetch per request
     const [sortOrder, setSortOrder] = useState('asc'); // Sort order
 
+
+    const [selectedBreeds, setSelectedBreeds] = useState(new Set());
+    const [favorites, setFavorites] = useState(new Set());
+
+
+    const [availableBreeds, setAvailableBreeds] = useFetchBreeds();
+
     const { currentPage, setCurrentPage, totalResults, setTotalResults, fetchNextPage, fetchPreviousPage, resultIds, setResultIds, nextQuery, setNextQuery, prevQuery, setPrevQuery } = usePagination();
 
-    const [favorites, setFavorites] = useState(new Set());
 
     const X = (currentPage - 1) * pageSize + 1;
     const Y = Math.min(currentPage * pageSize, totalResults);
     const totalPages = Math.ceil(totalResults / pageSize);
-
-    const toggleShowBreeds = () => {
-        setShowBreeds(!showBreeds);
-    }
-
-    const handleCheckboxChange = (breed) => {
-        const newSelectedBreeds = new Set(selectedBreeds);
-        if (newSelectedBreeds.has(breed)) {
-            newSelectedBreeds.delete(breed);
-        } else {
-            newSelectedBreeds.add(breed);
-        }
-        setSelectedBreeds(newSelectedBreeds);
-    };
 
     const fetchData = () => {
         const breedParams = Array.from(selectedBreeds)
@@ -79,11 +65,6 @@ export default function FilterPage() {
         }
     }, [resultIds]);
 
-    // Update whenever a filter is applied
-    const handleFilterChange = (newFilters) => {
-        setFilters(newFilters);
-    };
-
     return (
         <div className="filter-page">
             <header className="filter-page-header">
@@ -103,10 +84,8 @@ export default function FilterPage() {
 
                     <BreedFilter
                         availableBreeds={availableBreeds}
-                        handleCheckboxChange={handleCheckboxChange}
-                        toggleShowBreeds={toggleShowBreeds}
-                        showBreeds={showBreeds}
                         selectedBreeds={selectedBreeds}
+                        setSelectedBreeds={setSelectedBreeds}
                     />
 
                     <FavoritesFilter
