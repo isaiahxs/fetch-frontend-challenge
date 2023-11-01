@@ -9,8 +9,8 @@ import { useNavigate } from 'react-router-dom'
 import './Navigation.css'
 
 export default function Navigation({ isModalVisible, setModalVisible }) {
-    const { currentLanguage, setCurrentLanguage } = useLanguage();
-    const content = currentLanguage === 'english' ? englishContent : spanishContent;
+    // const { currentLanguage, setCurrentLanguage } = useLanguage();
+    // const content = currentLanguage === 'english' ? englishContent : spanishContent;
     const navigate = useNavigate()
 
     const navRef = useRef();
@@ -71,7 +71,7 @@ export default function Navigation({ isModalVisible, setModalVisible }) {
     const handleLogout = async () => {
         try {
             await axios.post('https://frontend-take-home-service.fetch.com/auth/logout', {}, { withCredentials: true });
-            localStorage.removeItem('isLoggedIn'); // Remove the flag from local storage
+            localStorage.removeItem('isLoggedIn');
             navigate('/');
             setIsNavOpen(!isNavOpen);
             setModalVisible(true);
