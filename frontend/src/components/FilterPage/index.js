@@ -27,7 +27,6 @@ export default function FilterPage() {
     const [ageMin, setAgeMin] = useState('');
     const [ageMax, setAgeMax] = useState('');
 
-
     useEffect(() => {
         localStorage.setItem('favorites', JSON.stringify(Array.from(favorites)));
     }, [favorites]);
