@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 import { BreedFilter } from '../BreedFilter';
@@ -15,7 +14,6 @@ import { usePagination } from './Hooks/usePagination';
 import './FilterPage.css';
 
 export default function FilterPage() {
-    const navigate = useNavigate();
     const [allDogs, setAllDogs] = useState([]);
     const [allFetchedDogs, setAllFetchedDogs] = useState([]);
 
@@ -72,8 +70,6 @@ export default function FilterPage() {
 
         const url = `https://frontend-take-home-service.fetch.com/dogs/search?${breedParams}&${zipCodeParams}&${ageParams.join('&')}&${sortParam}`;
 
-        // const url = `https://frontend-take-home-service.fetch.com/dogs/search?${breedParams}&${zipCodeParams}&${sortParam}`;
-
         axios.get(url, { withCredentials: true })
             .then(response => {
                 setResultIds(response.data.resultIds);
@@ -101,30 +97,6 @@ export default function FilterPage() {
         }
     }, [resultIds]);
 
-    const generateMatch = async () => {
-        const favoritedDogIds = Array.from(favorites);
-        if (favoritedDogIds.length === 0) {
-            alert("Looks like you don't have any favorites yet!");
-        }
-
-        try {
-            const response = await axios.post("https://frontend-take-home-service.fetch.com/dogs/match", favoritedDogIds, { withCredentials: true });
-
-            const matchId = response.data.match;
-
-            // alert(`Your Match Dog ID is ${matchId}`);
-
-            const detailResponse = await axios.post('https://frontend-take-home-service.fetch.com/dogs', [matchId], { withCredentials: true });
-            const matchDetails = detailResponse.data[0];
-            console.log('MATCH DETAILS', matchDetails);
-
-            navigate('/match', { state: { matchDetails } });
-
-        } catch (error) {
-            console.error("Error generating match:", error);
-        }
-    };
-
     return (
         <div className="filter-page">
             <header>
@@ -146,9 +118,17 @@ export default function FilterPage() {
                         setSelectedBreeds={setSelectedBreeds}
                     />
 
-                    <ZipCodeFilter selectedZipCodes={selectedZipCodes} setSelectedZipCodes={setSelectedZipCodes} />
+                    <ZipCodeFilter
+                        selectedZipCodes={selectedZipCodes}
+                        setSelectedZipCodes={setSelectedZipCodes}
+                    />
 
-                    <AgeFilter ageMin={ageMin} ageMax={ageMax} setAgeMin={setAgeMin} setAgeMax={setAgeMax} />
+                    <AgeFilter
+                        ageMin={ageMin}
+                        ageMax={ageMax}
+                        setAgeMin={setAgeMin}
+                        setAgeMax={setAgeMax}
+                    />
 
                     <button className='search-button' onClick={fetchData}>Fetch Dogs</button>
 
@@ -161,8 +141,6 @@ export default function FilterPage() {
                                 favorites={favorites}
                                 setFavorites={setFavorites}
                             />
-
-                            <button className='my-match-button' onClick={generateMatch}>Find My Match</button>
                         </>
                     )}
                 </aside>
