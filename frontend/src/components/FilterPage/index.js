@@ -1,13 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { BreedFilter } from '../BreedFilter';
-import { DogCard } from '../DogCard';
-import { FavoritesFilter } from '../FavoritesFilter';
-import { AlphabeticalFilter } from '../AlphabeticalFilter';
-import { ZipCodeFilter } from '../ZipCodeFilter';
-import AgeFilter from '../AgeFilter';
-// import { useFetchBreeds } from './Hooks/useFetchBreeds';
-import { Pagination } from '../FilterPage/Hooks/Pagination';
+import { BreedFilter } from './Filters/BreedFilter';
+import { DogCard } from './DogCard';
+import { FavoritesFilter } from './Filters/FavoritesFilter';
+import { AlphabeticalFilter } from './Filters/AlphabeticalFilter';
+import { ZipCodeFilter } from './Filters/ZipCodeFilter';
+import AgeFilter from './Filters/AgeFilter';
+import { Pagination } from '../FilterPage/Pagination';
 
 import './FilterPage.css';
 
