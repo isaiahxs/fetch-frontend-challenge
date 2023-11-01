@@ -42,11 +42,12 @@ function LoginFormModal() {
                                 <li key={idx}>{error}</li>
                             ))}
                         </ul>
-                        <label className='form-label'>
+                        <label className='form-label' htmlFor="name">
                             Name
                         </label>
                         <div className='form-sections'>
                             <input
+                                id='name'
                                 name='name'
                                 className='credential-input'
                                 type='text'
@@ -54,10 +55,11 @@ function LoginFormModal() {
                                 onChange={(e) => setName(e.target.value)}
                                 required
                             />
-                            <label className='form-label'>
+                            <label className='form-label' htmlFor="name">
                                 Email
                             </label>
                             <input
+                                id='email'
                                 name='email'
                                 className='credential-input'
                                 type='email'

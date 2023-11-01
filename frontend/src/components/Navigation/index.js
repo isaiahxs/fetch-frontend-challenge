@@ -17,9 +17,9 @@ export default function Navigation({ isModalVisible, setModalVisible }) {
     const [isNavOpen, setIsNavOpen] = useState(false);
 
 
-    const toggleLanguage = () => {
-        setCurrentLanguage(currentLanguage === 'english' ? 'spanish' : 'english');
-    };
+    // const toggleLanguage = () => {
+    //     setCurrentLanguage(currentLanguage === 'english' ? 'spanish' : 'english');
+    // };
 
     const toggleNavOpen = () => {
         setIsNavOpen(!isNavOpen);
