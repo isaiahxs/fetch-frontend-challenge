@@ -1,8 +1,18 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import './DogCard.css';
 
 export const DogCard = ({ dog, favorites, setFavorites }) => {
-    // const [favorites, setFavorites] = useState(new Set());
+
+    useEffect(() => {
+        localStorage.setItem('favorites', JSON.stringify(Array.from(favorites)));
+    }, [favorites]);
+
+    useEffect(() => {
+        const storedFavorites = localStorage.getItem('favorites');
+        if (storedFavorites) {
+            setFavorites(new Set(JSON.parse(storedFavorites)));
+        }
+    }, []);
 
     const toggleFavorite = (dogId) => {
         const newFavorites = new Set(favorites);

@@ -1,15 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-
 import { BreedFilter } from '../BreedFilter';
 import { DogCard } from '../DogCard';
 import { FavoritesFilter } from '../FavoritesFilter';
 import { AlphabeticalFilter } from '../AlphabeticalFilter';
 import { ZipCodeFilter } from '../ZipCodeFilter';
 import AgeFilter from '../AgeFilter';
-
 import { useFetchBreeds } from './Hooks/useFetchBreeds';
-// import { usePagination } from './Hooks/usePagination';
 import { Pagination } from '../FilterPage/Hooks/Pagination';
 
 import './FilterPage.css';
@@ -19,28 +16,17 @@ export default function FilterPage() {
     const [allFetchedDogs, setAllFetchedDogs] = useState([]);
 
     const [pageSize, setPageSize] = useState(25); // The number of results to fetch per request
+
+    // ------------------ FILTER STATE VARIABLES ------------------
     const [sortOrder, setSortOrder] = useState('asc'); // Sort order
-
-
+    const [availableBreeds, setAvailableBreeds] = useFetchBreeds();
     const [selectedBreeds, setSelectedBreeds] = useState(new Set());
     const [favorites, setFavorites] = useState(new Set());
     const [selectedZipCodes, setSelectedZipCodes] = useState(new Set());
     const [ageMin, setAgeMin] = useState('');
     const [ageMax, setAgeMax] = useState('');
 
-    useEffect(() => {
-        localStorage.setItem('favorites', JSON.stringify(Array.from(favorites)));
-    }, [favorites]);
-
-    useEffect(() => {
-        const storedFavorites = localStorage.getItem('favorites');
-        if (storedFavorites) {
-            setFavorites(new Set(JSON.parse(storedFavorites)));
-        }
-    }, []);
-
-    const [availableBreeds, setAvailableBreeds] = useFetchBreeds();
-
+    // ------------------ PAGINATION STATE VARIABLES ------------------
     const [resultIds, setResultIds] = useState([]);
     const [nextQuery, setNextQuery] = useState(null);
     const [prevQuery, setPrevQuery] = useState(null);
@@ -48,6 +34,7 @@ export default function FilterPage() {
     const [currentPage, setCurrentPage] = useState(1);
     const [totalResults, setTotalResults] = useState(0);
 
+    // ------------------ FETCH DOGS AFTER FILTERS ------------------
     const fetchData = () => {
         const sortParam = `sort=breed:${sortOrder}`;
 
