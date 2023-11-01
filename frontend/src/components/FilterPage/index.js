@@ -6,7 +6,7 @@ import { FavoritesFilter } from '../FavoritesFilter';
 import { AlphabeticalFilter } from '../AlphabeticalFilter';
 import { ZipCodeFilter } from '../ZipCodeFilter';
 import AgeFilter from '../AgeFilter';
-import { useFetchBreeds } from './Hooks/useFetchBreeds';
+// import { useFetchBreeds } from './Hooks/useFetchBreeds';
 import { Pagination } from '../FilterPage/Hooks/Pagination';
 
 import './FilterPage.css';
@@ -19,7 +19,10 @@ export default function FilterPage() {
 
     // ------------------ FILTER STATE VARIABLES ------------------
     const [sortOrder, setSortOrder] = useState('asc'); // Sort order
-    const [availableBreeds, setAvailableBreeds] = useFetchBreeds();
+
+    const [availableBreeds, setAvailableBreeds] = useState([]);
+
+
     const [selectedBreeds, setSelectedBreeds] = useState(new Set());
     const [favorites, setFavorites] = useState(new Set());
     const [selectedZipCodes, setSelectedZipCodes] = useState(new Set());
@@ -101,6 +104,7 @@ export default function FilterPage() {
 
                     <BreedFilter
                         availableBreeds={availableBreeds}
+                        setAvailableBreeds={setAvailableBreeds}
                         selectedBreeds={selectedBreeds}
                         setSelectedBreeds={setSelectedBreeds}
                     />

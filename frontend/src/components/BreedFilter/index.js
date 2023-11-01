@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import './BreedFilter.css';
 
-export const BreedFilter = ({ availableBreeds, selectedBreeds, setSelectedBreeds }) => {
+export const BreedFilter = ({ availableBreeds, setAvailableBreeds, selectedBreeds, setSelectedBreeds }) => {
 
     const [showBreeds, setShowBreeds] = useState(false);
 
@@ -18,6 +19,16 @@ export const BreedFilter = ({ availableBreeds, selectedBreeds, setSelectedBreeds
     const toggleShowBreeds = () => {
         setShowBreeds(!showBreeds);
     }
+
+    useEffect(() => {
+        axios.get('https://frontend-take-home-service.fetch.com/dogs/breeds', { withCredentials: true })
+            .then(response => {
+                setAvailableBreeds(response.data);
+            })
+            .catch(error => {
+                console.error('Error fetching available breeds:', error);
+            });
+    }, []);
 
     return (
         <div className='breed-filter-section'>
