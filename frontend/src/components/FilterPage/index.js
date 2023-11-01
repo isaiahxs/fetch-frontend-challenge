@@ -6,6 +6,7 @@ import { BreedFilter } from '../BreedFilter';
 import { DogCard } from '../DogCard';
 import { FavoritesFilter } from '../FavoritesFilter';
 import { AlphabeticalFilter } from '../AlphabeticalFilter';
+import { ZipCodeFilter } from '../ZipCodeFilter';
 
 import { useFetchBreeds } from './Hooks/useFetchBreeds';
 import { usePagination } from './Hooks/usePagination';
@@ -23,6 +24,8 @@ export default function FilterPage() {
 
     const [selectedBreeds, setSelectedBreeds] = useState(new Set());
     const [favorites, setFavorites] = useState(new Set());
+    const [selectedZipCodes, setSelectedZipCodes] = useState(new Set());
+
 
     useEffect(() => {
         localStorage.setItem('favorites', JSON.stringify(Array.from(favorites)));
@@ -49,10 +52,16 @@ export default function FilterPage() {
             .map(breed => `breeds=${encodeURIComponent(breed)}`)
             .join('&');
 
+        const zipCodeParams = Array.from(selectedZipCodes)
+            .map(zipCode => `zipCodes=${encodeURIComponent(zipCode)}`)
+            .join('&');
+
         // const sortParam = 'sort=breed:asc'; //for ascending order (a-z)
         const sortParam = `sort=breed:${sortOrder}`;
 
-        const url = `https://frontend-take-home-service.fetch.com/dogs/search?${breedParams}&${sortParam}`;
+        // const url = `https://frontend-take-home-service.fetch.com/dogs/search?${breedParams}&${sortParam}`;
+
+        const url = `https://frontend-take-home-service.fetch.com/dogs/search?${breedParams}&${zipCodeParams}&${sortParam}`;
 
         axios.get(url, { withCredentials: true })
             .then(response => {
@@ -125,6 +134,8 @@ export default function FilterPage() {
                         selectedBreeds={selectedBreeds}
                         setSelectedBreeds={setSelectedBreeds}
                     />
+
+                    <ZipCodeFilter selectedZipCodes={selectedZipCodes} setSelectedZipCodes={setSelectedZipCodes} />
 
                     <button className='search-button' onClick={fetchData}>Fetch Dogs</button>
 
