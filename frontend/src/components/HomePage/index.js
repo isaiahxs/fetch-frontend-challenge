@@ -89,7 +89,7 @@ export default function HomePage() {
             <Hero />
 
             {localStorage.getItem('isLoggedIn') !== 'true' && (
-                <div ref={loginRef} id='log-in-section'>
+                <div ref={loginRef} id='log-in-section' data-testid='log-in-section'>
                     <LoginFormModal isModalVisible={isModalVisible} setModalVisible={setModalVisible} />
                 </div>
             )}
