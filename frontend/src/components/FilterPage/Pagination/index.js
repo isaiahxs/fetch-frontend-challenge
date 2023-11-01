@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import './Pagination.css';
 import axios from 'axios';
 
 export const Pagination = ({
@@ -65,7 +66,7 @@ export const Pagination = ({
                 </div>
             }
 
-            <div className='pagination-buttons second-pagination-buttons'>
+            <div className='pagination-buttons'>
                 <button className='previous-page-button' onClick={fetchPreviousPage} disabled={!prevQuery}>Previous</button>
                 <button className='next-page-button' onClick={fetchNextPage} disabled={!nextQuery || Y >= totalResults}>Next</button>
             </div>

@@ -13,9 +13,10 @@ const AgeFilter = ({ ageMin, ageMax, setAgeMin, setAgeMax }) => {
     return (
         <div>
             <div className='age-filter-section'>
-                <label htmlFor="ageMin">Minimum Age: </label>
+                <label className='age-label' htmlFor="ageMin">Minimum Age: </label>
                 <input
                     id="ageMin"
+                    className='age-input'
                     type="number"
                     value={ageMin}
                     onChange={handleMinChange}
@@ -24,9 +25,10 @@ const AgeFilter = ({ ageMin, ageMax, setAgeMin, setAgeMax }) => {
             </div>
 
             <div className='age-filter-section'>
-                <label htmlFor="ageMax">Maximum Age: </label>
+                <label className='age-label' htmlFor="ageMax">Maximum Age: </label>
                 <input
                     id="ageMax"
+                    className='age-input'
                     type="number"
                     value={ageMax}
                     onChange={handleMaxChange}

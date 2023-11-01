@@ -1,0 +1,21 @@
+.pagination-buttons {
+    display: flex;
+    margin: auto;
+    justify-content: space-around;
+    width: 375px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.previous-page-button,
+.next-page-button {
+    width: 140px;
+}
+
+.page-count-header {
+    margin-bottom: 10px;
+}
+
+.results-header {
+    margin-bottom: 10px;
+}

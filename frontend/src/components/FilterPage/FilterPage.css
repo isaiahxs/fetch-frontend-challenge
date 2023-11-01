@@ -7,7 +7,6 @@
     justify-content: center;
     margin: auto;
     margin-top: 10px;
-    /* margin-bottom: 0px; */
     max-width: 350px;
     font-size: 1.5rem;
 }
@@ -25,7 +24,6 @@ h2.filter-page-header {
     flex-direction: column;
 }
 
-
 .filter-results {
     flex: 3;
 }
@@ -39,44 +37,12 @@ h2.filter-page-header {
     margin-top: 20px;
 }
 
-/* .results-list {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    margin: auto;
-} */
-
-.pagination-buttons {
-    display: flex;
-    margin: auto;
-    justify-content: space-around;
-    width: 375px;
-    margin-top: 20px;
-    margin-bottom: 20px;
-}
-
-.previous-page-button,
-.next-page-button {
-    width: 140px;
-}
-
-.disabled {
-    background-color: red;
-}
-
-.second-pagination-buttons {
-    margin-top: 0px;
-}
-
-.results-header {
-    margin-bottom: 10px;
-}
-
-.page-count-header {
-    margin-bottom: 10px;
-}
-
 .my-match-button {
     width: 150px;
     margin-top: 10px;
+}
+
+.scroll-to-top-button {
+    width: 130px;
+    margin-bottom: 20px;
 }

@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useLanguage } from '../../LanguageContext';
 import { englishContent, spanishContent } from './content';
-import { Link, useLocation } from 'react-router-dom';
 import black_dog from '../../assets/icons/black-dog.png';
 import logo_footer from '../../assets/icons/logo-footer.png';
 import hamburger from '../../assets/icons/hamburger.png';
@@ -12,9 +11,6 @@ import './Navigation.css'
 export default function Navigation({ isModalVisible, setModalVisible }) {
     const { currentLanguage, setCurrentLanguage } = useLanguage();
     const content = currentLanguage === 'english' ? englishContent : spanishContent;
-    const [lastScrollPos, setLastScrollPos] = useState(0);
-    const [isScrollingDown, setIsScrollingDown] = useState(false);
-    const location = useLocation();
     const navigate = useNavigate()
 
     const navRef = useRef();
@@ -75,7 +71,6 @@ export default function Navigation({ isModalVisible, setModalVisible }) {
     const handleLogout = async () => {
         try {
             await axios.post('https://frontend-take-home-service.fetch.com/auth/logout', {}, { withCredentials: true });
-            console.log('Logout success');
             localStorage.removeItem('isLoggedIn'); // Remove the flag from local storage
             navigate('/');
             setIsNavOpen(!isNavOpen);

@@ -9,7 +9,7 @@ export const ZipCodeFilter = ({ selectedZipCodes, setSelectedZipCodes }) => {
 
     return (
         <div className='zip-filter-section'>
-            <label htmlFor="zipCodes">Filter by Zip Code: </label>
+            <label className='zip-label' htmlFor="zipCodes">Filter by Zip Code: </label>
             <input
                 id="zipCodes"
                 className='zip-input'

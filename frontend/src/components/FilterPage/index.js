@@ -72,6 +72,10 @@ export default function FilterPage() {
             });
     };
 
+    const scrollToTop = () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    };
+
     useEffect(() => {
         if (resultIds.length > 0) {
             axios.post('https://frontend-take-home-service.fetch.com/dogs', resultIds, { withCredentials: true })
@@ -167,6 +171,8 @@ export default function FilterPage() {
                             />
                         ))}
                     </div>
+
+                    <button className='scroll-to-top-button' onClick={scrollToTop}>Back to Top</button>
 
                 </main>
             </div>
