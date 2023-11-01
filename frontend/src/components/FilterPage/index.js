@@ -9,7 +9,8 @@ import { ZipCodeFilter } from '../ZipCodeFilter';
 import AgeFilter from '../AgeFilter';
 
 import { useFetchBreeds } from './Hooks/useFetchBreeds';
-import { usePagination } from './Hooks/usePagination';
+// import { usePagination } from './Hooks/usePagination';
+import { Pagination } from '../FilterPage/Hooks/Pagination';
 
 import './FilterPage.css';
 
@@ -40,12 +41,12 @@ export default function FilterPage() {
 
     const [availableBreeds, setAvailableBreeds] = useFetchBreeds();
 
-    const { currentPage, setCurrentPage, totalResults, setTotalResults, fetchNextPage, fetchPreviousPage, resultIds, setResultIds, nextQuery, setNextQuery, prevQuery, setPrevQuery } = usePagination();
+    const [resultIds, setResultIds] = useState([]);
+    const [nextQuery, setNextQuery] = useState(null);
+    const [prevQuery, setPrevQuery] = useState(null);
 
-
-    const X = (currentPage - 1) * pageSize + 1;
-    const Y = Math.min(currentPage * pageSize, totalResults);
-    const totalPages = Math.ceil(totalResults / pageSize);
+    const [currentPage, setCurrentPage] = useState(1);
+    const [totalResults, setTotalResults] = useState(0);
 
     const fetchData = () => {
         const sortParam = `sort=breed:${sortOrder}`;
@@ -146,28 +147,25 @@ export default function FilterPage() {
 
                 <main className="filter-results">
 
-                    <h2 className="filter-page-header">Results</h2>
-                    {totalResults > 0 &&
-                        <>
-                            <div className='results-header'>
-                                Showing {X} - {Y} out of {totalResults} total
-                            </div>
-                            <div className='page-count-header'>
-                                (Page {currentPage} of {totalPages})
-                            </div>
-                        </>
-                    }
+                    <Pagination
+                        pageSize={pageSize}
+                        setPageSize={setPageSize}
 
-                    {totalResults === 0 &&
-                        <div className='results-header'>
-                            Showing {X - 1} - {Y} out of {totalResults} total
-                        </div>
-                    }
+                        resultIds={resultIds}
+                        setResultIds={setResultIds}
 
-                    <div className='pagination-buttons second-pagination-buttons'>
-                        <button className='previous-page-button' onClick={fetchPreviousPage} disabled={!prevQuery}>Previous</button>
-                        <button className='next-page-button' onClick={fetchNextPage} disabled={!nextQuery || Y >= totalResults}>Next</button>
-                    </div>
+                        nextQuery={nextQuery}
+                        setNextQuery={setNextQuery}
+
+                        prevQuery={prevQuery}
+                        setPrevQuery={setPrevQuery}
+
+                        currentPage={currentPage}
+                        setCurrentPage={setCurrentPage}
+
+                        totalResults={totalResults}
+                        setTotalResults={setTotalResults}
+                    />
 
                     <div className='results-list'>
                         {allDogs.map((dog, index) => (

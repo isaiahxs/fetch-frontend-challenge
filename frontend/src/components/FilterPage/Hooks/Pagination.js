@@ -1,13 +1,13 @@
 import { useState } from 'react';
 import axios from 'axios';
 
-export const usePagination = () => {
-    const [resultIds, setResultIds] = useState([]);
-    const [nextQuery, setNextQuery] = useState(null);
-    const [prevQuery, setPrevQuery] = useState(null);
+export const Pagination = ({
+    pageSize, setPageSize, resultIds, setResultIds, nextQuery, setNextQuery, prevQuery, setPrevQuery, currentPage, setCurrentPage, totalResults, setTotalResults
+}) => {
 
-    const [currentPage, setCurrentPage] = useState(1);
-    const [totalResults, setTotalResults] = useState(0);
+    const X = (currentPage - 1) * pageSize + 1;
+    const Y = Math.min(currentPage * pageSize, totalResults);
+    const totalPages = Math.ceil(totalResults / pageSize);
 
     const fetchNextPage = () => {
         if (nextQuery) {
@@ -43,19 +43,32 @@ export const usePagination = () => {
         }
     }
 
-    return {
-        resultIds,
-        setResultIds,
-        nextQuery,
-        setNextQuery,
-        prevQuery,
-        setPrevQuery,
+    return (
+        <>
+            <h2 className="filter-page-header">Results</h2>
+            {
+                totalResults > 0 &&
+                <>
+                    <div className='results-header'>
+                        Showing {X} - {Y} out of {totalResults} total
+                    </div>
+                    <div className='page-count-header'>
+                        (Page {currentPage} of {totalPages})
+                    </div>
+                </>
+            }
 
-        currentPage,
-        setCurrentPage,
-        totalResults,
-        setTotalResults,
-        fetchNextPage,
-        fetchPreviousPage
-    }
+            {
+                totalResults === 0 &&
+                <div className='results-header'>
+                    Showing {X - 1} - {Y} out of {totalResults} total
+                </div>
+            }
+
+            <div className='pagination-buttons second-pagination-buttons'>
+                <button className='previous-page-button' onClick={fetchPreviousPage} disabled={!prevQuery}>Previous</button>
+                <button className='next-page-button' onClick={fetchNextPage} disabled={!nextQuery || Y >= totalResults}>Next</button>
+            </div>
+        </>
+    )
 }
