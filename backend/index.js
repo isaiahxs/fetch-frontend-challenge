@@ -3,6 +3,7 @@ import cors from 'cors';
 import express from 'express';
 import axios from 'axios';
 import FormData from 'form-data';
+const jwt = require('jsonwebtoken');
 
 dotenv.config();
 
@@ -11,6 +12,23 @@ const port = 3001;
 
 app.use(cors());
 app.use(express.json());
+
+function verifyToken(token) {
+    try {
+        jwt.verify(token, process.env.JWT_SECRET);
+        return true;
+    } catch (err) {
+        return false;
+    }
+}
+
+app.get('/auth/status', (req, res) => {
+    if (req.cookies['fetch-access-token'] && verifyToken(req.cookies['fetch-access-token'])) {
+        res.json({ isAuthenticated: true });
+    } else {
+        res.json({ isAuthenticated: false });
+    }
+});
 
 app.get('/', (req, res) => {
     res.send('Hello World!');

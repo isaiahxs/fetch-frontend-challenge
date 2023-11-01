@@ -78,6 +78,25 @@ export default function FilterPage() {
         }
     }, [resultIds]);
 
+    const generateMatch = async () => {
+        const favoritedDogIds = Array.from(favorites);
+        console.log('FAVORITED DOG IDS', favoritedDogIds)
+        try {
+            const response = await axios.post("https://frontend-take-home-service.fetch.com/dogs/match", favoritedDogIds, { withCredentials: true });
+
+            console.log('THIS IS THE RESPONSE', response);
+
+            console.log('THIS IS THE RESPONSE DATA', response.data);
+
+            const matchId = response.data.match;
+            console.log('THIS IS YOUR MATCHID', matchId);
+            // Fetch additional details about the match if needed
+            alert(`Your Match Dog ID is ${matchId}`);
+        } catch (error) {
+            console.error("Error generating match:", error);
+        }
+    };
+
     return (
         <div className="filter-page">
             <header className="filter-page-header">
@@ -106,6 +125,9 @@ export default function FilterPage() {
                         favorites={favorites}
                         setFavorites={setFavorites}
                     />
+
+                    <button onClick={generateMatch}>Find My Match</button>
+
                 </aside>
 
                 <main className="filter-results">

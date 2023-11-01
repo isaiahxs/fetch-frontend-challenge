@@ -15,15 +15,7 @@ export default function Navigation({ isModalVisible, setModalVisible }) {
     const [lastScrollPos, setLastScrollPos] = useState(0);
     const [isScrollingDown, setIsScrollingDown] = useState(false);
     const location = useLocation();
-    // const [isModalVisible, setModalVisible] = useState(localStorage.getItem('isLoggedIn') !== 'true');
     const navigate = useNavigate()
-    const [isLoggedIn, setIsLoggedIn] = useState(false);
-
-    // Read from localStorage once when the component mounts
-    // useEffect(() => {
-    //     const loggedInStatus = localStorage.getItem('isLoggedIn');
-    //     setIsLoggedIn(loggedInStatus === 'true');
-    // }, []);
 
     const navRef = useRef();
     const [isNavOpen, setIsNavOpen] = useState(false);
@@ -85,7 +77,6 @@ export default function Navigation({ isModalVisible, setModalVisible }) {
             await axios.post('https://frontend-take-home-service.fetch.com/auth/logout', {}, { withCredentials: true });
             console.log('Logout success');
             localStorage.removeItem('isLoggedIn'); // Remove the flag from local storage
-            // Code to update the isModalVisible state in LoginFormModal
             navigate('/');
             setIsNavOpen(!isNavOpen);
             setModalVisible(true);
@@ -163,7 +154,6 @@ export default function Navigation({ isModalVisible, setModalVisible }) {
                             </a>
                         </div>
 
-                        {/* {isLoggedIn && ( */}
                         {localStorage.getItem('isLoggedIn') === 'true' && (
                             <div>
                                 <button className='nav-button panel-button' onClick={handleLogout}>

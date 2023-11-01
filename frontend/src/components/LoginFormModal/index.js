@@ -1,17 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom'
-import { useModal } from '../../context/Modal';
 import axios from 'axios';
 import './LoginFormModal.css';
 
-function LoginFormModal({ isModalVisible, setModalVisible }) {
-    const { closeModal } = useModal();
+function LoginFormModal() {
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [errors, setErrors] = useState([]);
-    const [isVisible, setIsVisible] = useState(true);
     const navigate = useNavigate()
-
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -31,7 +27,6 @@ function LoginFormModal({ isModalVisible, setModalVisible }) {
             console.log('Login success:', response.data);
             localStorage.setItem('isLoggedIn', 'true');
             navigate('/filter')
-            // setModalVisible(false);
         } catch (error) {
             // If an error occurs, log it and set it into the errors state
             console.log('Login error:', error);
@@ -39,32 +34,8 @@ function LoginFormModal({ isModalVisible, setModalVisible }) {
         }
     };
 
-    // // This effect runs whenever the component mounts and anytime isModalVisible changes
-    // useEffect(() => {
-    //     // Function to update isModalVisible based on localStorage
-    //     const updateModalVisibility = () => {
-    //         setModalVisible(localStorage.getItem('isLoggedIn') !== 'true');
-    //     };
-
-    //     // Listen for changes to localStorage
-    //     window.addEventListener('storage', updateModalVisibility);
-
-    //     if (isModalVisible) {
-    //         document.body.style.overflow = 'hidden';
-    //     } else {
-    //         document.body.style.overflow = 'auto';
-    //     }
-
-    //     // Cleanup: remove event listener when component unmounts
-    //     return () => {
-    //         document.body.style.overflow = 'auto';
-    //         window.removeEventListener('storage', updateModalVisibility);
-    //     };
-    // }, [isModalVisible]);
-
     return (
         <>
-            {/* {isModalVisible && ( */}
             <div className='fade-in login-form-container'>
                 <div className='login-form'>
                     <h1 className='log-in-label'>Log In</h1>
@@ -103,7 +74,6 @@ function LoginFormModal({ isModalVisible, setModalVisible }) {
                     </form>
                 </div>
             </div>
-            {/* )} */}
         </>
     );
 }
