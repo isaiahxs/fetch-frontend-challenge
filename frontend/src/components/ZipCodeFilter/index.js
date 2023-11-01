@@ -8,14 +8,15 @@ export const ZipCodeFilter = ({ selectedZipCodes, setSelectedZipCodes }) => {
     };
 
     return (
-        <div>
+        <div className='zip-filter-section'>
             <label htmlFor="zipCodes">Filter by Zip Code: </label>
             <input
                 id="zipCodes"
+                className='zip-input'
                 type="text"
                 value={Array.from(selectedZipCodes).join(', ')}
                 onChange={handleChange}
-                placeholder="Enter zip codes separated by commas"
+                placeholder="59451, 62037, 74155..."
             />
         </div>
     );

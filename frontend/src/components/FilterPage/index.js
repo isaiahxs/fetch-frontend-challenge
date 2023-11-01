@@ -7,6 +7,7 @@ import { DogCard } from '../DogCard';
 import { FavoritesFilter } from '../FavoritesFilter';
 import { AlphabeticalFilter } from '../AlphabeticalFilter';
 import { ZipCodeFilter } from '../ZipCodeFilter';
+import AgeFilter from '../AgeFilter';
 
 import { useFetchBreeds } from './Hooks/useFetchBreeds';
 import { usePagination } from './Hooks/usePagination';
@@ -25,6 +26,8 @@ export default function FilterPage() {
     const [selectedBreeds, setSelectedBreeds] = useState(new Set());
     const [favorites, setFavorites] = useState(new Set());
     const [selectedZipCodes, setSelectedZipCodes] = useState(new Set());
+    const [ageMin, setAgeMin] = useState('');
+    const [ageMax, setAgeMax] = useState('');
 
 
     useEffect(() => {
@@ -48,6 +51,8 @@ export default function FilterPage() {
     const totalPages = Math.ceil(totalResults / pageSize);
 
     const fetchData = () => {
+        const sortParam = `sort=breed:${sortOrder}`;
+
         const breedParams = Array.from(selectedBreeds)
             .map(breed => `breeds=${encodeURIComponent(breed)}`)
             .join('&');
@@ -56,12 +61,18 @@ export default function FilterPage() {
             .map(zipCode => `zipCodes=${encodeURIComponent(zipCode)}`)
             .join('&');
 
-        // const sortParam = 'sort=breed:asc'; //for ascending order (a-z)
-        const sortParam = `sort=breed:${sortOrder}`;
+        const ageParams = [];
+        if (ageMin) {
+            ageParams.push(`ageMin=${encodeURIComponent(ageMin)}`);
+        }
 
-        // const url = `https://frontend-take-home-service.fetch.com/dogs/search?${breedParams}&${sortParam}`;
+        if (ageMax) {
+            ageParams.push(`ageMax=${encodeURIComponent(ageMax)}`);
+        }
 
-        const url = `https://frontend-take-home-service.fetch.com/dogs/search?${breedParams}&${zipCodeParams}&${sortParam}`;
+        const url = `https://frontend-take-home-service.fetch.com/dogs/search?${breedParams}&${zipCodeParams}&${ageParams.join('&')}&${sortParam}`;
+
+        // const url = `https://frontend-take-home-service.fetch.com/dogs/search?${breedParams}&${zipCodeParams}&${sortParam}`;
 
         axios.get(url, { withCredentials: true })
             .then(response => {
@@ -136,6 +147,8 @@ export default function FilterPage() {
                     />
 
                     <ZipCodeFilter selectedZipCodes={selectedZipCodes} setSelectedZipCodes={setSelectedZipCodes} />
+
+                    <AgeFilter ageMin={ageMin} ageMax={ageMax} setAgeMin={setAgeMin} setAgeMax={setAgeMax} />
 
                     <button className='search-button' onClick={fetchData}>Fetch Dogs</button>
 
