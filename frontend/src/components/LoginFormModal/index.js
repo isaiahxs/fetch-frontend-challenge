@@ -23,13 +23,9 @@ function LoginFormModal() {
             // Make the POST request to /auth/login
             const response = await axios.post('https://frontend-take-home-service.fetch.com/auth/login', postData, { withCredentials: true });
 
-            // If successful, log the response and close the modal
-            console.log('Login success:', response.data);
             localStorage.setItem('isLoggedIn', 'true');
             navigate('/filter')
         } catch (error) {
-            // If an error occurs, log it and set it into the errors state
-            console.log('Login error:', error);
             setErrors(['An error occurred during login']);
         }
     };

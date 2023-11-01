@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 import { BreedFilter } from '../BreedFilter';
@@ -12,6 +13,7 @@ import { usePagination } from './Hooks/usePagination';
 import './FilterPage.css';
 
 export default function FilterPage() {
+    const navigate = useNavigate();
     const [allDogs, setAllDogs] = useState([]);
     const [allFetchedDogs, setAllFetchedDogs] = useState([]);
 
@@ -71,6 +73,7 @@ export default function FilterPage() {
                 .then(response => {
                     setAllDogs(response.data);
                     setAllFetchedDogs(prevDogs => [...new Set([...prevDogs, ...response.data])]);
+                    console.log('ALL FETCHED DOGS', allFetchedDogs);
                 })
                 .catch(error => {
                     console.error('Error fetching dog details:', error);
@@ -80,18 +83,23 @@ export default function FilterPage() {
 
     const generateMatch = async () => {
         const favoritedDogIds = Array.from(favorites);
-        console.log('FAVORITED DOG IDS', favoritedDogIds)
+        if (favoritedDogIds.length === 0) {
+            alert("Looks like you don't have any favorites yet!");
+        }
+
         try {
             const response = await axios.post("https://frontend-take-home-service.fetch.com/dogs/match", favoritedDogIds, { withCredentials: true });
 
-            console.log('THIS IS THE RESPONSE', response);
-
-            console.log('THIS IS THE RESPONSE DATA', response.data);
-
             const matchId = response.data.match;
-            console.log('THIS IS YOUR MATCHID', matchId);
-            // Fetch additional details about the match if needed
-            alert(`Your Match Dog ID is ${matchId}`);
+
+            // alert(`Your Match Dog ID is ${matchId}`);
+
+            const detailResponse = await axios.post('https://frontend-take-home-service.fetch.com/dogs', [matchId], { withCredentials: true });
+            const matchDetails = detailResponse.data[0];
+            console.log('MATCH DETAILS', matchDetails);
+
+            navigate('/match', { state: { matchDetails } });
+
         } catch (error) {
             console.error("Error generating match:", error);
         }
@@ -99,14 +107,12 @@ export default function FilterPage() {
 
     return (
         <div className="filter-page">
-            <header className="filter-page-header">
-                <h1>Find your pet today!</h1>
+            <header>
+                <h1 className="filter-page-header">Find your pet today!</h1>
+                <h2 className='filter-page-header'>After you've selected your desired filters, click the Fetch Dogs button!</h2>
             </header>
 
-            <button className='search-button' onClick={fetchData}>Fetch Dogs</button>
-
             <div className="filter-page-content">
-
                 <aside className="filter-sidebar">
                     <h2 className='filter-page-header'>Filters</h2>
                     <AlphabeticalFilter
@@ -120,14 +126,21 @@ export default function FilterPage() {
                         setSelectedBreeds={setSelectedBreeds}
                     />
 
-                    <FavoritesFilter
-                        allFetchedDogs={allFetchedDogs}
-                        favorites={favorites}
-                        setFavorites={setFavorites}
-                    />
+                    <button className='search-button' onClick={fetchData}>Fetch Dogs</button>
 
-                    <button onClick={generateMatch}>Find My Match</button>
+                    {allFetchedDogs.length > 0 && (
+                        <>
+                            <h2 className='filter-page-header'>Once you've added some favorites, you can click Find My Match to meet the pup you were matched with!</h2>
 
+                            <FavoritesFilter
+                                allFetchedDogs={allFetchedDogs}
+                                favorites={favorites}
+                                setFavorites={setFavorites}
+                            />
+
+                            <button className='my-match-button' onClick={generateMatch}>Find My Match</button>
+                        </>
+                    )}
                 </aside>
 
                 <main className="filter-results">

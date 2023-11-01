@@ -3,8 +3,21 @@
 }
 
 .filter-page-header {
-    margin-top: 20px;
-    margin-bottom: 10px;
+    display: flex;
+    justify-content: center;
+    margin: auto;
+    margin-top: 10px;
+    /* margin-bottom: 0px; */
+    max-width: 350px;
+    font-size: 1.5rem;
+}
+
+h1.filter-page-header {
+    font-size: 2.0rem;
+}
+
+h2.filter-page-header {
+    font-size: 1.3rem;
 }
 
 .filter-page-content {
@@ -20,6 +33,10 @@
 .search-button,
 .dropdown-button {
     width: 200px;
+}
+
+.search-button {
+    margin-top: 20px;
 }
 
 /* .results-list {
@@ -57,4 +74,9 @@
 
 .page-count-header {
     margin-bottom: 10px;
+}
+
+.my-match-button {
+    width: 150px;
+    margin-top: 10px;
 }

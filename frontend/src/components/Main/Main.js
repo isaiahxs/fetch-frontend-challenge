@@ -4,6 +4,7 @@ import Navigation from '../Navigation';
 import Footer from '../Footer';
 import HomePage from '../HomePage';
 import FilterPage from '../FilterPage';
+import Match from '../Match';
 
 export default function Main() {
     const [isModalVisible, setModalVisible] = useState(localStorage.getItem('isLoggedIn') !== 'true');
@@ -44,6 +45,8 @@ export default function Main() {
                 <Route path="/" element={<HomePage />} />
 
                 <Route path="/filter" element={<FilterPage />} />
+
+                <Route path="/match" element={<Match />} />
             </Routes>
 
             <div ref={footerRef} className='body-fade-in' id='footer'>

@@ -1,0 +1,32 @@
+.match-container {
+    display: flex;
+    justify-content: center;
+    margin: auto;
+    flex-direction: column;
+    margin-top: 100px;
+    max-width: 400px;
+}
+
+.match-header {
+    margin-bottom: 20px;
+}
+
+.match-subheader {
+    margin-bottom: 20px;
+}
+
+.match-body {
+    margin-bottom: 20px;
+}
+
+.match-buttons {
+    display: flex;
+    justify-content: space-around;
+    max-width: 500px;
+    margin-bottom: 20px;
+}
+
+.more-pups-button,
+.take-pup-home-button {
+    width: 180px;
+}
