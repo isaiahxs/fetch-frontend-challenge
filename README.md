@@ -6,6 +6,8 @@ This project is a full-stack Pet Finder using React, Node.js, and Express. Below
 
 <strong>My project includes responsive media queries, client-side validations, modularized components, local storage utilization to conditionally render UI components, Jest tests, accesibility considerations, SEO optimizations, semantic tags, and more.
 
+![image](https://github.com/isaiahxs/fetch-frontend-challenge/assets/107521578/7e25c46a-3e9d-4208-9ad8-1ce0748299ee)
+
 ## Pre-requisites
 1. Node.js (v14.x.x or higher)
 2. npm (v7.x.x or higher)
@@ -86,6 +88,8 @@ npm start
 ```
 
 This will open the client-side on `http://localhost:3000`.
+
+![image](https://github.com/isaiahxs/fetch-frontend-challenge/assets/107521578/ee8dc7b2-7bd2-4f21-877c-244ee57456fa)
 
 ## Running Tests with Jest
 Once the dependencies are installed, to run client-side tests, run the following command from the frontend directory of the project:
