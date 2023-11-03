@@ -1,70 +1,95 @@
-# Getting Started with Create React App
+# Getting started: Fetch Friend Finder
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## [View My Live Site!](https://isaiah-fetch-frontend.onrender.com/)
 
-## Available Scripts
+This project is a full-stack Pet Finder using React, Node.js, and Express. Below are the instructions to set up the environment for running this project on any OS.
 
-In the project directory, you can run:
+<strong>My project includes responsive media queries, client-side validations, modularized components, local storage utilization to conditionally render UI components, Jest tests, accesibility considerations, SEO optimizations, semantic tags, and more.
 
-### `npm start`
+## Pre-requisites
+1. Node.js (v14.x.x or higher)
+2. npm (v7.x.x or higher)
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## Installing Node.js and npm on different operating systems
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### Windows
+1. Download the Node.js installer from the [official website](https://nodejs.org/en/download/).
+2. Run the installer and follow the setup wizard to install Node.js and npm.
 
-### `npm test`
+### macOS
+You can use Homebrew to install Node.js:
+```
+brew install node
+```
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Or download the installer from the [official website](https://nodejs.org/en/download/).
 
-### `npm run build`
+### Linux (Ubuntu)
+Run the following commands in your terminal:
+```
+sudo apt update
+sudo apt install nodejs npm
+```
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Clone the Repository
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+Clone the repository into your local machine with one of the following methods:
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+HTTPS
+```
+https://github.com/isaiahxs/fetch-backend-take-home.git
+```
 
-### `npm run eject`
+SSH
+```
+git@github.com:isaiahxs/fetch-backend-take-home.git
+```
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+GitHub CLI:
+```
+gh repo clone isaiahxs/fetch-backend-take-home
+```
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Navigate into the project directory:
+```
+cd fetch-backend-take-home
+```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+## Install dependencies
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+To install the required backend dependencies, run the following from within the backend directory:
+```
+npm install
+```
 
-## Learn More
+To install the required frontend dependencies, run the following from within the frontend directory:
+```
+npm install
+```
+```
+npm run build
+```
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## Run the Server
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+Once the dependencies are installed, enter the backend directory and run the server using
+```
+npm start
+```
 
-### Code Splitting
+This will start the server on `http://localhost:3001`. The url I used was https://frontend-take-home-service.fetch.com, but if you'd like to make custom routes, you can make API requests to this URL using Postman or curl.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+To use the frontend, run the following from within the frontend directory:
 
-### Analyzing the Bundle Size
+```
+npm start
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+This will open the client-side on `http://localhost:3000`.
 
-### Making a Progressive Web App
+## Running Tests with Jest
+Once the dependencies are installed, to run client-side tests, run the following command from the frontend directory of the project:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+```
+npm run test a
+```
