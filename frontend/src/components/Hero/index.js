@@ -36,40 +36,45 @@ export default function Hero() {
         <header className='header-container'>
             <div className='hero-section'>
                 <div className='hero-information'>
-                    <h1 className='title fade1'>{content.title}</h1>
-                    <h2 className='location fade1'>{content.location}</h2>
-                    <button className='hero-language-toggle-button fade1' onClick={toggleLanguage}>
+                    <h1 className='title fade1'>Fetch Friend Finder</h1>
+                    <h2 className='location fade1'>Connecting You to Shelters Nationwide</h2>
+                    {/* <button className='hero-language-toggle-button fade1' onClick={toggleLanguage}>
                         {currentLanguage === 'english' ? 'Español' : 'English'}
-                    </button>
+                    </button> */}
 
                     <div className='hero-descriptions-container fade2'>
                         <h3 className='description'>
-                            {content.description}
+                            {/* {content.description} */}
+                            Browse through our extensive database to find the perfect companion.
                         </h3>
 
                         <h3 className='description description-2'>
-                            {content.description2}
+                            {/* {content.description2} */}
+                            We make it easy for you to connect with shelters and bring home a loving pet.
                         </h3>
 
                         <h3 className='description description-hours'>
-                            {content.hours}
+                            {/* {content.hours} */}
+                            Always Open: Search Anytime, Anywhere
                         </h3>
 
                         <h3 className='description description-hours description-hours-bottom'>
-                            {content.hoursSat}
+                            {/* {content.hoursSat} */}
                         </h3>
                     </div>
 
                     <div className='hero-buttons-container fade2'>
                         {localStorage.getItem('isLoggedIn') !== 'true' && (
                             <button className='view-services-hero' onClick={() => scrollToSection('log-in-section')}>
-                                {content.login}
+                                {/* {content.login} */}
+                                Log In
                             </button>
                         )}
 
                         {localStorage.getItem('isLoggedIn') === 'true' && (
                             <button className='view-services-hero' onClick={handleClick}>
-                                {content.viewPets}
+                                {/* {content.viewPets} */}
+                                View Pets
                             </button>
                         )}
 
@@ -85,7 +90,10 @@ export default function Hero() {
                         <div className="gradient-overlay">
                             <div className='contact-container'>
                                 <div className='contact-heading-container'>
-                                    <h3 className='contact-heading-text'>{content.contactHeading}</h3>
+                                    <h3 className='contact-heading-text'>
+                                        {/* {content.contactHeading} */}
+                                        Contact Us
+                                    </h3>
                                 </div>
 
                                 <a href="https://fetch.com/"

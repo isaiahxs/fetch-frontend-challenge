@@ -107,7 +107,7 @@ export default function FilterPage() {
 
     return (
         <div className="filter-page">
-            <header>
+            <header className='filter-header'>
                 <h1 className="filter-page-header">Find your pet today!</h1>
                 <h2 className='filter-page-header'>After you've selected your desired filters, click the Fetch Dogs button!</h2>
             </header>

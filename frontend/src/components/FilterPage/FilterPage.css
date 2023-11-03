@@ -1,6 +1,12 @@
 .filter-page {
     margin-top: 100px;
+    margin-left: 10px;
+    margin-right: 10px;
 }
+
+/* .filter-header {
+
+} */
 
 .filter-page-header {
     display: flex;

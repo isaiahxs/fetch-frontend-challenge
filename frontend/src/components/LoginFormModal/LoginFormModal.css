@@ -78,3 +78,10 @@
     position: relative;
     overflow-y: hidden;
 }
+
+@media screen and (max-width: 700px) {
+    .login-form {
+        margin: 15px;
+        /* max-width: 350px; */
+    }
+}
