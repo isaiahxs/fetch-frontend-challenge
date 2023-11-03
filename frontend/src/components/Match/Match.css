@@ -30,3 +30,20 @@
 .take-pup-home-button {
     width: 180px;
 }
+
+@media screen and (max-width: 500px) {
+    .match-buttons {
+        margin: auto;
+        justify-content: center;
+        flex-direction: column;
+    }
+
+    .match-container {
+        margin-bottom: 10px;
+    }
+
+    .take-pup-home-button {
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
+}

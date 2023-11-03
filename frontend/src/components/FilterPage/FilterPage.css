@@ -1,5 +1,5 @@
 .filter-page {
-    margin-top: 120px;
+    margin-top: 100px;
 }
 
 .filter-page-header {
@@ -17,6 +17,7 @@ h1.filter-page-header {
 
 h2.filter-page-header {
     font-size: 1.3rem;
+    padding: 5px 12px;
 }
 
 .filter-page-content {
@@ -33,10 +34,6 @@ h2.filter-page-header {
     width: 200px;
 }
 
-.search-button {
-    margin-top: 20px;
-}
-
 .my-match-button {
     width: 150px;
     margin-top: 10px;
@@ -46,3 +43,59 @@ h2.filter-page-header {
     width: 130px;
     margin-bottom: 20px;
 }
+
+.search-button {
+    display: flex;
+    justify-content: center;
+    margin: auto;
+    margin-top: 20px;
+}
+
+.filters-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: auto;
+}
+
+@media screen and (min-width: 600px) {
+    .filters-container {
+        width: 500px;
+    }
+
+    .filter-sidebar {
+        flex-direction: column;
+    }
+
+    .alphabetical-filter-section,
+    .zip-filter-section,
+    .age-filter-section-1,
+    .age-filter-section-2 {
+        margin-top: 10px;
+    }
+
+    .sorted-zip-section {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+    }
+
+    .age-filter-section {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+    }
+}
+
+/* 
+.age-filter-section,
+.order-dropdown,
+.zip-filter-section,
+.breed-filter-section {
+    background-color: red;
+} */
+
+
+/* .favorites-dropdown {
+    background-color: blue;
+} */

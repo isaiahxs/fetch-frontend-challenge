@@ -7,6 +7,7 @@
 }
 
 .dropdown-button {
+    margin-top: 10px;
     position: relative;
 }
 
@@ -27,7 +28,7 @@
 }
 
 .dropdown-options {
-    background-color: #fee3ba;
+    background-color: #ffeed5;
     padding: 2px;
     /* background-color: white; */
     display: flex;
@@ -47,7 +48,7 @@
 
 /* .favorites-dropdown, */
 .order-dropdown {
-    margin-bottom: 20px;
+    /* margin-bottom: 20px; */
 }
 
 .favorites-dropdown {

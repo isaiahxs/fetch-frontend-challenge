@@ -98,13 +98,8 @@ export default function FilterPage() {
             </header>
 
             <div className="filter-page-content">
-                <aside className="filter-sidebar">
-                    <h2 className='filter-page-header'>Filters</h2>
-                    <AlphabeticalFilter
-                        sortOrder={sortOrder}
-                        setSortOrder={setSortOrder}
-                    />
-
+                <h2 className='filter-page-header'>Filters</h2>
+                <aside className="filters-container">
                     <BreedFilter
                         availableBreeds={availableBreeds}
                         setAvailableBreeds={setAvailableBreeds}
@@ -112,32 +107,43 @@ export default function FilterPage() {
                         setSelectedBreeds={setSelectedBreeds}
                     />
 
-                    <ZipCodeFilter
-                        selectedZipCodes={selectedZipCodes}
-                        setSelectedZipCodes={setSelectedZipCodes}
-                    />
-
-                    <AgeFilter
-                        ageMin={ageMin}
-                        ageMax={ageMax}
-                        setAgeMin={setAgeMin}
-                        setAgeMax={setAgeMax}
-                    />
-
-                    <button className='search-button' onClick={fetchData}>Fetch Dogs</button>
-
-                    {allFetchedDogs.length > 0 && (
-                        <>
-                            <h2 className='filter-page-header'>Once you've added some favorites, click Find My Match to meet the pup you were matched with!</h2>
-
-                            <FavoritesFilter
-                                allFetchedDogs={allFetchedDogs}
-                                favorites={favorites}
-                                setFavorites={setFavorites}
+                    <div>
+                        <div className='sorted-zip-section'>
+                            <AlphabeticalFilter
+                                sortOrder={sortOrder}
+                                setSortOrder={setSortOrder}
                             />
-                        </>
-                    )}
+
+
+                            <ZipCodeFilter
+                                selectedZipCodes={selectedZipCodes}
+                                setSelectedZipCodes={setSelectedZipCodes}
+                            />
+                        </div>
+
+                        <AgeFilter
+                            ageMin={ageMin}
+                            ageMax={ageMax}
+                            setAgeMin={setAgeMin}
+                            setAgeMax={setAgeMax}
+                        />
+                    </div>
+
                 </aside>
+
+                <button className='search-button' onClick={fetchData}>Fetch Dogs</button>
+
+                {allFetchedDogs.length > 0 && (
+                    <>
+                        <h2 className='filter-page-header'>Once you've added some favorites, click Find My Match to meet the pup you were matched with!</h2>
+
+                        <FavoritesFilter
+                            allFetchedDogs={allFetchedDogs}
+                            favorites={favorites}
+                            setFavorites={setFavorites}
+                        />
+                    </>
+                )}
 
                 <main className="filter-results">
 

@@ -89,7 +89,7 @@
     color: white;
 }
 
-@media screen and (max-width: 495px) {
+@media screen and (max-width: 525px) {
     .nav-bar {
         padding: 15px 0px;
     }

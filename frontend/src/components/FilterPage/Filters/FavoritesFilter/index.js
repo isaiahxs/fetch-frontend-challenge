@@ -9,7 +9,7 @@ export const FavoritesFilter = ({ favorites, allFetchedDogs }) => {
     const generateMatch = async () => {
         const favoritedDogIds = Array.from(favorites);
         if (favoritedDogIds.length === 0) {
-            alert("Looks like you don't have any favorites yet!");
+            alert("Looks like you don't have any favorites yet! After you've added some, you can find your match!");
         }
 
         try {
