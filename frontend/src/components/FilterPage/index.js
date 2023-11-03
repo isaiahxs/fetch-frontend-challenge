@@ -128,7 +128,7 @@ export default function FilterPage() {
 
                     {allFetchedDogs.length > 0 && (
                         <>
-                            <h2 className='filter-page-header'>Once you've added some favorites, you can click Find My Match to meet the pup you were matched with!</h2>
+                            <h2 className='filter-page-header'>Once you've added some favorites, click Find My Match to meet the pup you were matched with!</h2>
 
                             <FavoritesFilter
                                 allFetchedDogs={allFetchedDogs}

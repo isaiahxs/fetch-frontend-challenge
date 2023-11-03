@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 import './BreedFilter.css';
 
@@ -20,6 +20,27 @@ export const BreedFilter = ({ availableBreeds, setAvailableBreeds, selectedBreed
         setShowBreeds(!showBreeds);
     }
 
+    const buttonRef = useRef(null);
+    const dropdownRef = useRef(null);
+
+    useEffect(() => {
+        // Function to call when clicking outside of dropdown
+        const onClickOutside = (event) => {
+            // If showBreeds is true and the click is outside the dropdown and the button, toggle the dropdown off
+            if (showBreeds && dropdownRef.current && !dropdownRef.current.contains(event.target) && !buttonRef.current.contains(event.target)) {
+                toggleShowBreeds();
+            }
+        };
+
+        // Attach the listener to the document
+        document.addEventListener('mousedown', onClickOutside);
+
+        // Clean up the listener to prevent memory leaks
+        return () => {
+            document.removeEventListener('mousedown', onClickOutside);
+        };
+    }, [showBreeds]); // Only re-run the effect if showBreeds changes
+
     useEffect(() => {
         axios.get('https://frontend-take-home-service.fetch.com/dogs/breeds', { withCredentials: true })
             .then(response => {
@@ -32,12 +53,12 @@ export const BreedFilter = ({ availableBreeds, setAvailableBreeds, selectedBreed
 
     return (
         <div className='breed-filter-section'>
-            <button className='dropdown-button' onClick={toggleShowBreeds}>
+            <button ref={buttonRef} className='dropdown-button' onClick={toggleShowBreeds}>
                 Breeds {showBreeds ? '▲' : '▼'}
             </button>
 
             {showBreeds && (
-                <div className='options'>
+                <div ref={dropdownRef} className='options'>
                     {availableBreeds.map((breed, index) => (
                         <label className='dropdown-options' key={index}>
                             <input
