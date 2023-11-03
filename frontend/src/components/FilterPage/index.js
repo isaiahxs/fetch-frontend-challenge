@@ -25,8 +25,8 @@ export default function FilterPage() {
     const [selectedBreeds, setSelectedBreeds] = useState(new Set());
     const [favorites, setFavorites] = useState(new Set());
     const [selectedZipCodes, setSelectedZipCodes] = useState(new Set());
-    const [ageMin, setAgeMin] = useState('');
-    const [ageMax, setAgeMax] = useState('');
+    const [ageMin, setAgeMin] = useState(0);
+    const [ageMax, setAgeMax] = useState(15);
 
     // ------------------ PAGINATION STATE VARIABLES ------------------
     const [resultIds, setResultIds] = useState([]);
@@ -36,8 +36,20 @@ export default function FilterPage() {
     const [currentPage, setCurrentPage] = useState(1);
     const [totalResults, setTotalResults] = useState(0);
 
+    // useEffect(() => {
+    //     // fetchData should be called when the relevant filter states change
+    //     fetchData();
+    // }, [selectedBreeds, selectedZipCodes, ageMin, ageMax, sortOrder]);
     // ------------------ FETCH DOGS AFTER FILTERS ------------------
     const fetchData = () => {
+        setTotalResults([]);
+        setResultIds([]);
+        setAllDogs([]);
+        setAllFetchedDogs([]);
+        setSelectedZipCodes([]);
+        // setAgeMin('');
+        // setAgeMax('');
+
         const sortParam = `sort=breed:${sortOrder}`;
 
         const breedParams = Array.from(selectedBreeds)
@@ -66,6 +78,10 @@ export default function FilterPage() {
                 setPrevQuery(response.data.prev);
                 setCurrentPage(1);
                 setTotalResults(response.data.total);
+
+                if (response.data.total === 0) {
+                    alert("Sorry, no dogs were found with those filters! Check that the minimum age is less than maximum age and that your zip code has 5 digits!")
+                }
             })
             .catch(error => {
                 console.error('Error fetching available breeds:', error);
@@ -82,7 +98,6 @@ export default function FilterPage() {
                 .then(response => {
                     setAllDogs(response.data);
                     setAllFetchedDogs(prevDogs => [...new Set([...prevDogs, ...response.data])]);
-                    console.log('ALL FETCHED DOGS', allFetchedDogs);
                 })
                 .catch(error => {
                     console.error('Error fetching dog details:', error);
@@ -98,13 +113,8 @@ export default function FilterPage() {
             </header>
 
             <div className="filter-page-content">
-                <aside className="filter-sidebar">
-                    <h2 className='filter-page-header'>Filters</h2>
-                    <AlphabeticalFilter
-                        sortOrder={sortOrder}
-                        setSortOrder={setSortOrder}
-                    />
-
+                <h2 className='filter-page-header'>Filters</h2>
+                <aside className="filters-container">
                     <BreedFilter
                         availableBreeds={availableBreeds}
                         setAvailableBreeds={setAvailableBreeds}
@@ -112,32 +122,43 @@ export default function FilterPage() {
                         setSelectedBreeds={setSelectedBreeds}
                     />
 
-                    <ZipCodeFilter
-                        selectedZipCodes={selectedZipCodes}
-                        setSelectedZipCodes={setSelectedZipCodes}
-                    />
-
-                    <AgeFilter
-                        ageMin={ageMin}
-                        ageMax={ageMax}
-                        setAgeMin={setAgeMin}
-                        setAgeMax={setAgeMax}
-                    />
-
-                    <button className='search-button' onClick={fetchData}>Fetch Dogs</button>
-
-                    {allFetchedDogs.length > 0 && (
-                        <>
-                            <h2 className='filter-page-header'>Once you've added some favorites, you can click Find My Match to meet the pup you were matched with!</h2>
-
-                            <FavoritesFilter
-                                allFetchedDogs={allFetchedDogs}
-                                favorites={favorites}
-                                setFavorites={setFavorites}
+                    <div>
+                        <div className='sorted-zip-section'>
+                            <AlphabeticalFilter
+                                sortOrder={sortOrder}
+                                setSortOrder={setSortOrder}
                             />
-                        </>
-                    )}
+
+
+                            <ZipCodeFilter
+                                selectedZipCodes={selectedZipCodes}
+                                setSelectedZipCodes={setSelectedZipCodes}
+                            />
+                        </div>
+
+                        <AgeFilter
+                            ageMin={ageMin}
+                            ageMax={ageMax}
+                            setAgeMin={setAgeMin}
+                            setAgeMax={setAgeMax}
+                        />
+                    </div>
+
                 </aside>
+
+                <button className='search-button' onClick={fetchData}>Fetch Dogs</button>
+
+                {allFetchedDogs.length > 0 && (
+                    <>
+                        <h2 className='filter-page-header'>Once you've added some favorites, click Find My Match to meet the pup you were matched with!</h2>
+
+                        <FavoritesFilter
+                            allFetchedDogs={allFetchedDogs}
+                            favorites={favorites}
+                            setFavorites={setFavorites}
+                        />
+                    </>
+                )}
 
                 <main className="filter-results">
 
