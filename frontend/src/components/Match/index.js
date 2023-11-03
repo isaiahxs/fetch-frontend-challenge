@@ -22,8 +22,8 @@ export default function Match() {
         <div>
             {matchDetails ? (
                 <div className='match-container'>
-                    <h1 className='match-header'>Congratulations, your match is {matchDetails.name}!</h1>
-                    <div className='dog-card'>
+                    <h1 className='match-header fade-in'>Congratulations, your match is {matchDetails.name}!</h1>
+                    <div className='dog-card fade2'>
                         <img className='dog-picture' src={matchDetails.img} alt={matchDetails.name} />
                         <div className='section-under-picture'>
                             <p>Age: {matchDetails.age}</p>
@@ -32,7 +32,7 @@ export default function Match() {
                         </div>
                     </div>
 
-                    <div className='match-buttons'>
+                    <div className='match-buttons fade3'>
                         <button className='more-pups-button'
                             onClick={returnFilter}
                         >

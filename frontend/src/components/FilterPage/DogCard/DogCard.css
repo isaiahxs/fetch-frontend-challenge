@@ -3,25 +3,30 @@
     justify-content: center;
     flex-direction: column;
     margin: auto;
-    height: auto;
-    width: 350px;
+    height: 500px;
+    width: 330px;
     border: 2px solid #300d38;
     margin-bottom: 20px;
-    background-color:
-        #fee3ba;
+    background-color: #ffeed4;
 }
 
 .inner-dog-card {
-    cursor: pointer;
+    /* cursor: pointer; */
 }
 
 .dog-picture {
-    border-bottom: 2px solid #300d38;
-    width: 100%;
+    margin: auto;
+    margin-top: 20px;
+    border: 2px solid #300d38;
+    width: auto;
+    min-height: 240px;
+    max-height: 280px;
+    max-width: 300px;
 }
 
 .section-under-picture {
     padding: 10px;
+    padding-bottom: 20px;
 }
 
 .favorite-button {

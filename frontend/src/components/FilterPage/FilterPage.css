@@ -1,5 +1,5 @@
 .filter-page {
-    margin-top: 120px;
+    margin-top: 100px;
 }
 
 .filter-page-header {
@@ -7,7 +7,7 @@
     justify-content: center;
     margin: auto;
     margin-top: 10px;
-    max-width: 350px;
+    max-width: 400px;
     font-size: 1.5rem;
 }
 
@@ -17,6 +17,7 @@ h1.filter-page-header {
 
 h2.filter-page-header {
     font-size: 1.3rem;
+    padding: 5px 12px;
 }
 
 .filter-page-content {
@@ -24,17 +25,9 @@ h2.filter-page-header {
     flex-direction: column;
 }
 
-.filter-results {
-    flex: 3;
-}
-
 .search-button,
 .dropdown-button {
     width: 200px;
-}
-
-.search-button {
-    margin-top: 20px;
 }
 
 .my-match-button {
@@ -45,4 +38,66 @@ h2.filter-page-header {
 .scroll-to-top-button {
     width: 130px;
     margin-bottom: 20px;
+    margin-top: 20px;
+}
+
+.search-button {
+    display: flex;
+    justify-content: center;
+    margin: auto;
+    margin-top: 20px;
+}
+
+.filters-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: auto;
+}
+
+.results-list {
+    /* display: flex; */
+
+}
+
+@media screen and (min-width: 800px) {
+    .results-list {
+        display: grid;
+        grid-template-columns: repeat(2, 350px);
+        grid-gap: 40px;
+        justify-content: center;
+    }
+
+    .dog-card {
+        margin-bottom: 0px;
+    }
+}
+
+@media screen and (min-width: 600px) {
+    .filters-container {
+        width: 500px;
+    }
+
+    .filter-sidebar {
+        flex-direction: column;
+    }
+
+    .alphabetical-filter-section,
+    .zip-filter-section,
+    .age-filter-section-1,
+    .age-filter-section-2 {
+        margin-top: 10px;
+    }
+
+    .sorted-zip-section {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+    }
+
+    .age-filter-section {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+    }
 }
