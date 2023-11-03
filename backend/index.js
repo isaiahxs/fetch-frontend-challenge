@@ -1,31 +1,34 @@
-import dotenv from 'dotenv';
-import cors from 'cors';
-import express from 'express';
-import axios from 'axios';
-import FormData from 'form-data';
+// import dotenv from 'dotenv';
+// import cors from 'cors';
+// import express from 'express';
+// import axios from 'axios';
+// import FormData from 'form-data';
+// const router = express.Router();
 
-dotenv.config();
+// dotenv.config();
 
-const app = express();
-const port = 3001;
+// const app = express();
+// const port = 3001;
 
-app.use(cors());
-app.use(express.json());
+// app.use(cors());
+// app.use(express.json());
 
-app.get('/', (req, res) => {
-    res.send('Hello World!');
-});
+// router.get('/test', (req, res) => {
+//     res.send('Test endpoint');
+// });
 
-app.listen(port, () => {
-    console.log(`Server running on http://localhost:${port}`);
-});
+// app.get('/', (req, res) => {
+//     res.send('Hello World!');
+// });
 
-app.get('/api/test', (req, res) => {
-    res.send('Check the console');
-});
+// app.get('/api/test', (req, res) => {
+//     res.send('Check the console');
+// });
 
-app.post('/auth/login', (req, res) => {
-    const { name, email } = req.body;
-    // Handle authentication logic here
-    res.json({ message: 'Login successful', name, email });
-});
+// app.post('/auth/login', (req, res) => {
+//     const { name, email } = req.body;
+//     // Handle authentication logic here
+//     res.json({ message: 'Login successful', name, email });
+// });
+
+// app.use('/', router);
