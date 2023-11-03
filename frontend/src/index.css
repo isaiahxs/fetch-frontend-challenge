@@ -54,6 +54,14 @@ button:hover {
   color: white;
 }
 
+button:disabled {
+  cursor: not-allowed;
+}
+
+button:disabled:hover {
+  opacity: 0.5;
+}
+
 textarea {
   font-size: 1.0rem;
 }

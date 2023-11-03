@@ -38,7 +38,7 @@ export const DogCard = ({ dog, favorites, setFavorites }) => {
                 });
             },
             {
-                threshold: 0.1,
+                threshold: 0.05,
             }
         );
 
@@ -51,7 +51,7 @@ export const DogCard = ({ dog, favorites, setFavorites }) => {
                 observer.unobserve(cardRef.current);
             }
         }
-    }, []);
+    }, [dog]);
 
     return (
         <div ref={cardRef} key={dog.id} className="dog-card body-fade-in">
