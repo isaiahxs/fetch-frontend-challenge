@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import './DogCard.css';
 
 export const DogCard = ({ dog, favorites, setFavorites }) => {
@@ -25,10 +25,46 @@ export const DogCard = ({ dog, favorites, setFavorites }) => {
         setFavorites(newFavorites);
     };
 
+    const cardRef = useRef(null);
+
+    useEffect(() => {
+        const observer = new IntersectionObserver(
+            (entries, observer) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('show');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            },
+            {
+                threshold: 0.05,
+            }
+        );
+
+        if (cardRef.current) {
+            observer.observe(cardRef.current);
+        }
+
+        return () => {
+            if (cardRef.current) {
+                observer.unobserve(cardRef.current);
+            }
+        }
+    }, [dog]);
+
     return (
-        <div key={dog.id} className="dog-card">
+        <div ref={cardRef} key={dog.id} className="dog-card body-fade-in">
             <div className='inner-dog-card'>
-                <img src={dog.img} className='dog-picture' alt={`${dog.name} picture`} />
+
+                <div>
+                    <img
+                        src={dog.img}
+                        className='dog-picture'
+                        alt={`${dog.name} picture`}
+                    />
+                </div>
+
                 <div className='section-under-picture'>
                     <p>Name: {dog.name}</p>
                     <p>Age: {dog.age}</p>

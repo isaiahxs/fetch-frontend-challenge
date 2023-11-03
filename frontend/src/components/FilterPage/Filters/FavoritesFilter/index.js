@@ -9,7 +9,7 @@ export const FavoritesFilter = ({ favorites, allFetchedDogs }) => {
     const generateMatch = async () => {
         const favoritedDogIds = Array.from(favorites);
         if (favoritedDogIds.length === 0) {
-            alert("Looks like you don't have any favorites yet!");
+            alert("Looks like you don't have any favorites yet! After you've added some, you can find your match!");
         }
 
         try {
@@ -22,7 +22,7 @@ export const FavoritesFilter = ({ favorites, allFetchedDogs }) => {
             console.log('MATCH DETAILS', matchDetails);
 
             navigate('/match', { state: { matchDetails } });
-
+            window.scrollTo(0, 0);
         } catch (error) {
             console.error("Error generating match:", error);
         }

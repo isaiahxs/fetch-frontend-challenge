@@ -1,4 +1,5 @@
-.age-filter-section {
+.age-filter-section-1,
+.age-filter-section-2 {
     display: flex;
     justify-content: center;
     flex-direction: column;

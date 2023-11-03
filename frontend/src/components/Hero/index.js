@@ -29,6 +29,7 @@ export default function Hero() {
 
     const handleClick = async (e) => {
         navigate('/filter')
+        window.scrollTo(0, 0);
     }
 
     return (
