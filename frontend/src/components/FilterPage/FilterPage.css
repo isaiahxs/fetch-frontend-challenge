@@ -25,10 +25,6 @@ h2.filter-page-header {
     flex-direction: column;
 }
 
-.filter-results {
-    flex: 3;
-}
-
 .search-button,
 .dropdown-button {
     width: 200px;
@@ -56,6 +52,24 @@ h2.filter-page-header {
     flex-direction: column;
     justify-content: center;
     margin: auto;
+}
+
+.results-list {
+    /* display: flex; */
+
+}
+
+@media screen and (min-width: 800px) {
+    .results-list {
+        display: grid;
+        grid-template-columns: repeat(2, 350px);
+        grid-gap: 40px;
+        justify-content: center;
+    }
+
+    .dog-card {
+        margin-bottom: 0px;
+    }
 }
 
 @media screen and (min-width: 600px) {
@@ -86,16 +100,3 @@ h2.filter-page-header {
         justify-content: space-around;
     }
 }
-
-/* 
-.age-filter-section,
-.order-dropdown,
-.zip-filter-section,
-.breed-filter-section {
-    background-color: red;
-} */
-
-
-/* .favorites-dropdown {
-    background-color: blue;
-} */

@@ -56,7 +56,15 @@ export const DogCard = ({ dog, favorites, setFavorites }) => {
     return (
         <div ref={cardRef} key={dog.id} className="dog-card body-fade-in">
             <div className='inner-dog-card'>
-                <img src={dog.img} className='dog-picture' alt={`${dog.name} picture`} />
+
+                <div>
+                    <img
+                        src={dog.img}
+                        className='dog-picture'
+                        alt={`${dog.name} picture`}
+                    />
+                </div>
+
                 <div className='section-under-picture'>
                     <p>Name: {dog.name}</p>
                     <p>Age: {dog.age}</p>
