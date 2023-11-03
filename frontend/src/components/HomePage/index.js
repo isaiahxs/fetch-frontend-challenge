@@ -82,6 +82,7 @@ export default function HomePage() {
 
     const handleClick = async (e) => {
         navigate('/filter');
+        window.scrollTo(0, 0);
     }
 
     return (
