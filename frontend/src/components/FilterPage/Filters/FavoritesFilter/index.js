@@ -22,7 +22,7 @@ export const FavoritesFilter = ({ favorites, allFetchedDogs }) => {
             console.log('MATCH DETAILS', matchDetails);
 
             navigate('/match', { state: { matchDetails } });
-
+            window.scrollTo(0, 0);
         } catch (error) {
             console.error("Error generating match:", error);
         }
