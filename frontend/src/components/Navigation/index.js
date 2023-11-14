@@ -8,14 +8,13 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom'
 import './Navigation.css'
 
-export default function Navigation({ isModalVisible, setModalVisible }) {
+export default function Navigation() {
     // const { currentLanguage, setCurrentLanguage } = useLanguage();
     // const content = currentLanguage === 'english' ? englishContent : spanishContent;
     const navigate = useNavigate()
 
     const navRef = useRef();
     const [isNavOpen, setIsNavOpen] = useState(false);
-
 
     // const toggleLanguage = () => {
     //     setCurrentLanguage(currentLanguage === 'english' ? 'spanish' : 'english');
@@ -50,31 +49,12 @@ export default function Navigation({ isModalVisible, setModalVisible }) {
         };
     }, [isNavOpen]);
 
-
-    const scrollToSection = (sectionId) => {
-        setIsNavOpen(false);
-
-        const sectionElement = document.getElementById(sectionId);
-        if (sectionId === 'footer') {
-            sectionElement.scrollIntoView({ behavior: 'smooth', block: 'end' });
-        } else {
-            const yOffset = -90;
-            const topOffset = sectionElement.getBoundingClientRect().top + window.scrollY + yOffset;
-            window.scrollTo({ top: topOffset, behavior: 'smooth' });
-        }
-    };
-
-    const scrollToTop = () => {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-    };
-
     const handleLogout = async () => {
         try {
             await axios.post('https://frontend-take-home-service.fetch.com/auth/logout', {}, { withCredentials: true });
             localStorage.removeItem('isLoggedIn');
             navigate('/');
             setIsNavOpen(!isNavOpen);
-            setModalVisible(true);
         } catch (error) {
             console.log('Logout error:', error);
         }

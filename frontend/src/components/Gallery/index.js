@@ -8,8 +8,8 @@ import Keagan from '../../assets/images/Keagan_Chihuahua.jpg';
 import Lisa from '../../assets/images/Lisa_German_Shepherd.jpg';
 
 export default function Gallery() {
-    const { currentLanguage, setCurrentLanguage } = useLanguage();
-    const content = currentLanguage === 'english' ? englishContent : spanishContent;
+    // const { currentLanguage, setCurrentLanguage } = useLanguage();
+    // const content = currentLanguage === 'english' ? englishContent : spanishContent;
 
     return (
         <div className='gallery-section'>

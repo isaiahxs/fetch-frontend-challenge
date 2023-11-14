@@ -1,9 +1,7 @@
 import React, { useEffect, useState, useRef } from 'react';
-import Navigation from '../Navigation';
 import LoginFormModal from '../LoginFormModal';
 import Hero from '../Hero';
 import Gallery from '../Gallery';
-import Footer from '../Footer';
 import { useNavigate } from 'react-router-dom'
 import './HomePage.css';
 import { useLanguage } from '../../LanguageContext';
@@ -11,7 +9,6 @@ import { englishContent, spanishContent } from './content';
 
 export default function HomePage() {
 
-    const [isModalVisible, setModalVisible] = useState(localStorage.getItem('isLoggedIn') !== 'true');
     const navigate = useNavigate()
 
     const galleryRef = useRef(null);
@@ -19,24 +16,8 @@ export default function HomePage() {
     // const servicesRef = useRef(null);
     const footerRef = useRef(null);
 
-    const { currentLanguage, setCurrentLanguage } = useLanguage();
-    const content = currentLanguage === 'english' ? englishContent : spanishContent;
-
-    useEffect(() => {
-        const updateModalVisibility = () => {
-            setModalVisible(localStorage.getItem('isLoggedIn') !== 'true');
-        };
-
-        // Initial call to set the state
-        updateModalVisibility();
-
-        // Listen to storage changes
-        window.addEventListener('storage', updateModalVisibility);
-
-        return () => {
-            window.removeEventListener('storage', updateModalVisibility);
-        };
-    }, []);
+    // const { currentLanguage, setCurrentLanguage } = useLanguage();
+    // const content = currentLanguage === 'english' ? englishContent : spanishContent;
 
     useEffect(() => {
         const observer = new IntersectionObserver(
@@ -91,15 +72,15 @@ export default function HomePage() {
 
             {localStorage.getItem('isLoggedIn') !== 'true' && (
                 <div ref={loginRef} id='log-in-section' data-testid='log-in-section'>
-                    <LoginFormModal isModalVisible={isModalVisible} setModalVisible={setModalVisible} />
+                    <LoginFormModal />
                 </div>
             )}
 
             {localStorage.getItem('isLoggedIn') === 'true' && (
                 <div className='signed-in-home-message'>
-                    {content.signedIn}
+                    Looks like you're already signed in!
                     <button className='start-looking-button' onClick={handleClick}>
-                        {content.lookForPets}
+                        Look for pets
                     </button>
                 </div>
             )}

@@ -83,11 +83,11 @@ a:hover {}
 /* FADE EFFECTS */
 
 .fade-in {
+  /* name of animation | duration | timing-function - speed curve | delay | fill-mode */
+  /* fill-mode is forwards which means the element will retain the style values set by the last keyframe when the animation finishes */
   animation: heroAnim 0.75s ease-out 0s forwards;
   animation-delay: 0s;
 }
-
-/* transform: translateY(5%); */
 
 @keyframes heroAnim {
   0% {

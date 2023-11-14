@@ -79,6 +79,10 @@
     overflow-y: hidden;
 }
 
+.error-message {
+    color: rgb(203, 0, 0);
+}
+
 @media screen and (max-width: 700px) {
     .login-form {
         margin: 15px;

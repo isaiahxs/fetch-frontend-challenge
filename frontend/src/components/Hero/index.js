@@ -12,13 +12,13 @@ import { useNavigate } from 'react-router-dom'
 import './Hero.css';
 
 export default function Hero() {
-    const { currentLanguage, setCurrentLanguage } = useLanguage();
+    // const { currentLanguage, setCurrentLanguage } = useLanguage();
     const navigate = useNavigate()
-    const toggleLanguage = () => {
-        setCurrentLanguage(currentLanguage === 'english' ? 'spanish' : 'english');
-    };
+    // const toggleLanguage = () => {
+    //     setCurrentLanguage(currentLanguage === 'english' ? 'spanish' : 'english');
+    // };
 
-    const content = currentLanguage === 'english' ? englishContent : spanishContent;
+    // const content = currentLanguage === 'english' ? englishContent : spanishContent;
 
     const scrollToSection = (sectionId) => {
         const sectionElement = document.getElementById(sectionId);

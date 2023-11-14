@@ -7,8 +7,6 @@ import FilterPage from '../FilterPage';
 import Match from '../Match';
 
 export default function Main() {
-    const [isModalVisible, setModalVisible] = useState(localStorage.getItem('isLoggedIn') !== 'true');
-
     const footerRef = useRef(null);
 
     useEffect(() => {
@@ -39,7 +37,7 @@ export default function Main() {
 
     return (
         <main>
-            <Navigation isModalVisible={isModalVisible} setModalVisible={setModalVisible} />
+            <Navigation />
 
             <Routes>
                 <Route path="/" element={<HomePage />} />

@@ -5,13 +5,8 @@ import logo from '../../assets/icons/logo-footer.png';
 import './Footer.css';
 
 export default function Footer() {
-    const { currentLanguage, setCurrentLanguage } = useLanguage();
-    const content = currentLanguage === 'english' ? englishContent : spanishContent;
-
-    const scrollToSection = (sectionId) => {
-        const sectionElement = document.getElementById(sectionId);
-        sectionElement.scrollIntoView({ behavior: 'smooth' });
-    };
+    // const { currentLanguage, setCurrentLanguage } = useLanguage();
+    // const content = currentLanguage === 'english' ? englishContent : spanishContent;
 
     const scrollToTop = () => {
         window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -21,7 +16,7 @@ export default function Footer() {
         <footer className='footer-container' id='footer' >
             <div className='footer-section'>
                 <section className='logo-section'>
-                    <img src={logo} className='big-logo' alt="Big Sin Fronteras Logo" onClick={() => scrollToTop()} />
+                    <img src={logo} className='big-logo' alt="Big Fetch Logo" onClick={() => scrollToTop()} />
                 </section>
 
                 <section className='second-footer-section'>
