@@ -1,6 +1,9 @@
 import './AlphabeticalFilter.css';
+import { useFilters } from '../../FilterContext';
 
-export const AlphabeticalFilter = ({ sortOrder, setSortOrder }) => {
+export const AlphabeticalFilter = () => {
+    const { sortOrder, setSortOrder } = useFilters();
+
     return (
         <div className='order-dropdown'>
             <label className='alphabetical-filter-section'>Sort breed by: </label>

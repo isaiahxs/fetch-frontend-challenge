@@ -1,7 +1,9 @@
 import { useState, useEffect, useRef } from 'react';
+import { useFilters } from '../FilterContext';
 import './DogCard.css';
 
-export const DogCard = ({ dog, favorites, setFavorites }) => {
+export const DogCard = ({ dog }) => {
+    const { favorites, setFavorites } = useFilters();
 
     useEffect(() => {
         localStorage.setItem('favorites', JSON.stringify(Array.from(favorites)));

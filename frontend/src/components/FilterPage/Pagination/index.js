@@ -1,10 +1,20 @@
 import { useState } from 'react';
+import { useFilters } from '../FilterContext';
 import './Pagination.css';
 import axios from 'axios';
 
-export const Pagination = ({
-    pageSize, setResultIds, nextQuery, setNextQuery, prevQuery, setPrevQuery, currentPage, setCurrentPage, totalResults, setTotalResults
-}) => {
+export const Pagination = () => {
+
+    const { pageSize,
+        nextQuery,
+        setNextQuery,
+        prevQuery,
+        setPrevQuery,
+        currentPage,
+        setCurrentPage,
+        totalResults,
+        setTotalResults,
+        setResultIds } = useFilters();
 
     const X = (currentPage - 1) * pageSize + 1;
     const Y = Math.min(currentPage * pageSize, totalResults);

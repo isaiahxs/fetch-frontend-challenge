@@ -7,39 +7,31 @@ import { AlphabeticalFilter } from './Filters/AlphabeticalFilter';
 import { ZipCodeFilter } from './Filters/ZipCodeFilter';
 import AgeFilter from './Filters/AgeFilter';
 import { Pagination } from '../FilterPage/Pagination';
+import { useFilters } from './FilterContext';
 
 import './FilterPage.css';
 
 export default function FilterPage() {
-    const [allDogs, setAllDogs] = useState([]);
-    const [allFetchedDogs, setAllFetchedDogs] = useState([]);
 
-    const [pageSize, setPageSize] = useState(25); // The number of results to fetch per request
+    const {
+        allDogs,
+        setAllDogs,
+        allFetchedDogs,
+        setAllFetchedDogs,
+        selectedBreeds,
+        setTotalResults,
+        setNextQuery,
+        setPrevQuery,
+        setCurrentPage,
+        resultIds,
+        setResultIds,
+        selectedZipCodes,
+        setSelectedZipCodes,
+        ageMin,
+        ageMax,
+        sortOrder,
+    } = useFilters();
 
-    // ------------------ FILTER STATE VARIABLES ------------------
-    const [sortOrder, setSortOrder] = useState('asc'); // Sort order
-
-    const [availableBreeds, setAvailableBreeds] = useState([]);
-
-
-    const [selectedBreeds, setSelectedBreeds] = useState(new Set());
-    const [favorites, setFavorites] = useState(new Set());
-    const [selectedZipCodes, setSelectedZipCodes] = useState(new Set());
-    const [ageMin, setAgeMin] = useState(0);
-    const [ageMax, setAgeMax] = useState(15);
-
-    // ------------------ PAGINATION STATE VARIABLES ------------------
-    const [resultIds, setResultIds] = useState([]);
-    const [nextQuery, setNextQuery] = useState(null);
-    const [prevQuery, setPrevQuery] = useState(null);
-
-    const [currentPage, setCurrentPage] = useState(1);
-    const [totalResults, setTotalResults] = useState(0);
-
-    // useEffect(() => {
-    //     // fetchData should be called when the relevant filter states change
-    //     fetchData();
-    // }, [selectedBreeds, selectedZipCodes, ageMin, ageMax, sortOrder]);
     // ------------------ FETCH DOGS AFTER FILTERS ------------------
     const fetchData = () => {
         setTotalResults([]);
@@ -117,33 +109,14 @@ export default function FilterPage() {
             <div className="filter-page-content">
                 <h2 className='filter-page-header'>Filters</h2>
                 <aside className="filters-container">
-                    <BreedFilter
-                        availableBreeds={availableBreeds}
-                        setAvailableBreeds={setAvailableBreeds}
-                        selectedBreeds={selectedBreeds}
-                        setSelectedBreeds={setSelectedBreeds}
-                    />
+                    <BreedFilter />
 
                     <div>
                         <div className='sorted-zip-section'>
-                            <AlphabeticalFilter
-                                sortOrder={sortOrder}
-                                setSortOrder={setSortOrder}
-                            />
-
-
-                            <ZipCodeFilter
-                                selectedZipCodes={selectedZipCodes}
-                                setSelectedZipCodes={setSelectedZipCodes}
-                            />
+                            <AlphabeticalFilter />
+                            <ZipCodeFilter />
                         </div>
-
-                        <AgeFilter
-                            ageMin={ageMin}
-                            ageMax={ageMax}
-                            setAgeMin={setAgeMin}
-                            setAgeMax={setAgeMax}
-                        />
+                        <AgeFilter />
                     </div>
 
                 </aside>
@@ -153,50 +126,27 @@ export default function FilterPage() {
                 {allFetchedDogs.length > 0 && (
                     <>
                         <h2 className='filter-page-header'>Once you've added some favorites, click Find My Match to meet the pup you were matched with!</h2>
-
-                        <FavoritesFilter
-                            allFetchedDogs={allFetchedDogs}
-                            favorites={favorites}
-                            setFavorites={setFavorites}
-                        />
+                        <FavoritesFilter />
                     </>
                 )}
 
                 <main className="filter-results">
-
-                    <Pagination
-                        pageSize={pageSize}
-                        setPageSize={setPageSize}
-
-                        resultIds={resultIds}
-                        setResultIds={setResultIds}
-
-                        nextQuery={nextQuery}
-                        setNextQuery={setNextQuery}
-
-                        prevQuery={prevQuery}
-                        setPrevQuery={setPrevQuery}
-
-                        currentPage={currentPage}
-                        setCurrentPage={setCurrentPage}
-
-                        totalResults={totalResults}
-                        setTotalResults={setTotalResults}
-                    />
-
+                    <Pagination />
                     <div className='results-list'>
                         {allDogs.map((dog, index) => (
                             <DogCard
                                 dog={dog}
                                 key={index}
-                                favorites={favorites}
-                                setFavorites={setFavorites}
                             />
                         ))}
                     </div>
 
-                    <button className='scroll-to-top-button' onClick={scrollToTop}>Back to Top</button>
-
+                    <button
+                        className='scroll-to-top-button'
+                        onClick={scrollToTop}
+                    >
+                        Back to Top
+                    </button>
                 </main>
             </div>
         </div>

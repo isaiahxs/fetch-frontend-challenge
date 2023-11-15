@@ -1,8 +1,10 @@
 import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
+import { useFilters } from '../../FilterContext';
 import './BreedFilter.css';
 
-export const BreedFilter = ({ availableBreeds, setAvailableBreeds, selectedBreeds, setSelectedBreeds }) => {
+export const BreedFilter = () => {
+    const { availableBreeds, setAvailableBreeds, selectedBreeds, setSelectedBreeds } = useFilters();
 
     const [showBreeds, setShowBreeds] = useState(false);
 

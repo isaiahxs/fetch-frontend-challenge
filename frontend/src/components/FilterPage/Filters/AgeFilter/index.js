@@ -1,7 +1,11 @@
 import React from 'react';
+import { useFilters } from '../../FilterContext';
 import './AgeFilter.css';
 
-const AgeFilter = ({ ageMin, ageMax, setAgeMin, setAgeMax }) => {
+const AgeFilter = () => {
+
+    const { ageMin, ageMax, setAgeMin, setAgeMax } = useFilters();
+
     const handleMinChange = (e) => {
         setAgeMin(e.target.value);
     };

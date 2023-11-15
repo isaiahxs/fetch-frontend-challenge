@@ -1,7 +1,11 @@
 import React from 'react';
+import { useFilters } from '../../FilterContext';
 import './ZipCodeFilter.css';
 
-export const ZipCodeFilter = ({ selectedZipCodes, setSelectedZipCodes }) => {
+export const ZipCodeFilter = () => {
+
+    const { selectedZipCodes, setSelectedZipCodes } = useFilters();
+
     const handleChange = (e) => {
         const value = e.target.value;
         setSelectedZipCodes(new Set(value.split(',').map(item => item.trim())));

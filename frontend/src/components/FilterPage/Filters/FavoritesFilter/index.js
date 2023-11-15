@@ -1,10 +1,14 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { useFilters } from '../../FilterContext';
+
 import './FavoritesFilter.css'
 
-export const FavoritesFilter = ({ favorites, allFetchedDogs }) => {
+export const FavoritesFilter = () => {
     const navigate = useNavigate();
+
+    const { favorites, setFavorites, allFetchedDogs } = useFilters();
 
     const generateMatch = async () => {
         // console.log('favorites before converting to array', favorites); //it's a set containing unique string dog ID's
@@ -40,8 +44,9 @@ export const FavoritesFilter = ({ favorites, allFetchedDogs }) => {
                 <select>
                     {/* after converting favorites set to array, we can iterate through each id */}
                     {Array.from(favorites).map((favoriteId) => {
-                        // look for this specific dog in allFetchedDogs
+                        //look for this specific dog in allFetchedDogs based on id
                         const dog = allFetchedDogs.find(d => d.id === favoriteId);
+                        //show its name, if it hasn't loaded yet or there is an error, show "Unknown"
                         return <option key={favoriteId} value={favoriteId}>{dog ? dog.name : "Unknown"}</option>;
                     })}
                 </select>
