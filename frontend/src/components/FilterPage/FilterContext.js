@@ -88,3 +88,21 @@ export const FilterProvider = ({ children }) => {
         </FilterContext.Provider>
     )
 };
+
+// A utility function to compose multiple providers
+// const combineProviders = (...components) => components.reduce(
+//     (AccumulatedComponents, CurrentComponent) =>
+//       ({ children }) =>
+//         <AccumulatedComponents>
+//           <CurrentComponent>
+//             {children}
+//           </CurrentComponent>
+//         </AccumulatedComponents>
+//   , ({ children }) => <>{children}</>);
+
+//   const CombinedProvider = combineProviders(ContextProviderOne, ContextProviderTwo, ContextProviderThree);
+
+//   // In your index.js or App.js
+//   <CombinedProvider>
+//     <App />
+//   </CombinedProvider>

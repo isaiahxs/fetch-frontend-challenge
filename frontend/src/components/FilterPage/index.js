@@ -7,6 +7,7 @@ import { AlphabeticalFilter } from './Filters/AlphabeticalFilter';
 import { ZipCodeFilter } from './Filters/ZipCodeFilter';
 import AgeFilter from './Filters/AgeFilter';
 import { Pagination } from '../FilterPage/Pagination';
+import { SizeFilter } from '../FilterPage/Filters/SizeFilter';
 import { useFilters } from './FilterContext';
 
 import './FilterPage.css';
@@ -21,7 +22,6 @@ export default function FilterPage() {
         selectedBreeds,
         setTotalResults,
         setNextQuery,
-        setPrevQuery,
         setCurrentPage,
         resultIds,
         setResultIds,
@@ -30,9 +30,11 @@ export default function FilterPage() {
         ageMin,
         ageMax,
         sortOrder,
+        pageSize,
     } = useFilters();
 
     // ------------------ FETCH DOGS AFTER FILTERS ------------------
+    // encodeURIComponent so we can encode special characters within the query part of theURL without breaking code and encode non-ASCII characters like &, =, +, and %
     const fetchData = () => {
         setTotalResults([]);
         setResultIds([]);
@@ -44,10 +46,12 @@ export default function FilterPage() {
 
         const sortParam = `sort=breed:${sortOrder}`;
 
+        //['Affenpinscher', 'Afghan Hound']
         const breedParams = Array.from(selectedBreeds)
             .map(breed => `breeds=${encodeURIComponent(breed)}`)
             .join('&');
 
+        // ['59451', '98701']
         const zipCodeParams = Array.from(selectedZipCodes)
             .map(zipCode => `zipCodes=${encodeURIComponent(zipCode)}`)
             .join('&');
@@ -61,14 +65,15 @@ export default function FilterPage() {
             ageParams.push(`ageMax=${encodeURIComponent(ageMax)}`);
         }
 
-        const url = `https://frontend-take-home-service.fetch.com/dogs/search?${breedParams}&${zipCodeParams}&${ageParams.join('&')}&${sortParam}`;
+        const size = `size=${pageSize}`;
+
+        const url = `https://frontend-take-home-service.fetch.com/dogs/search?${breedParams}&${zipCodeParams}&${ageParams.join('&')}&${sortParam}&${size}`;
 
         axios.get(url, { withCredentials: true })
             .then(response => {
+                console.log(response);
                 setResultIds(response.data.resultIds);
                 setNextQuery(response.data.next);
-                setPrevQuery(response.data.prev);
-                setCurrentPage(1);
                 setTotalResults(response.data.total);
 
                 if (response.data.total === 0) {
@@ -84,14 +89,25 @@ export default function FilterPage() {
         window.scrollTo({ top: 0, behavior: 'smooth' });
     };
 
+    //make POST to /dogs to retrieve dog objects. we will need to keep track of dog id's because we will then use it in our favorites component
     useEffect(() => {
         if (resultIds.length > 0) {
             axios.post('https://frontend-take-home-service.fetch.com/dogs', resultIds, { withCredentials: true })
                 .then(response => {
                     setAllDogs(response.data);
                     console.log('ALL DOGS', allDogs);
+
+                    //set is referring to object references instead of individual dog id's so the dog objects can appear multiple times right now
+
                     setAllFetchedDogs(prevDogs => [...new Set([...prevDogs, ...response.data])]);
                     console.log('ALL FETCHED DOGS', allFetchedDogs);
+
+                    // setAllFetchedDogs(prevDogs => {
+                    //     const updatedDogs = new Map(prevDogs);
+                    //     response.data.forEach(dog => updatedDogs.set(dog.id, dog));
+                    //     return updatedDogs;
+                    // });
+                    // console.log(allFetchedDogs);
                 })
                 .catch(error => {
                     console.error('Error fetching dog details:', error);
@@ -110,7 +126,6 @@ export default function FilterPage() {
                 <h2 className='filter-page-header'>Filters</h2>
                 <aside className="filters-container">
                     <BreedFilter />
-
                     <div>
                         <div className='sorted-zip-section'>
                             <AlphabeticalFilter />
@@ -118,10 +133,13 @@ export default function FilterPage() {
                         </div>
                         <AgeFilter />
                     </div>
-
                 </aside>
 
-                <button className='search-button' onClick={fetchData}>Fetch Dogs</button>
+                <SizeFilter />
+
+                <button className='search-button' onClick={fetchData}>
+                    Fetch Dogs
+                </button>
 
                 {allFetchedDogs.length > 0 && (
                     <>

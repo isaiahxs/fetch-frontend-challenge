@@ -8,7 +8,7 @@ import './FavoritesFilter.css'
 export const FavoritesFilter = () => {
     const navigate = useNavigate();
 
-    const { favorites, setFavorites, allFetchedDogs } = useFilters();
+    const { favorites, allFetchedDogs } = useFilters();
 
     const generateMatch = async () => {
         // console.log('favorites before converting to array', favorites); //it's a set containing unique string dog ID's

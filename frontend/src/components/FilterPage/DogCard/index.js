@@ -7,6 +7,7 @@ export const DogCard = ({ dog }) => {
 
     useEffect(() => {
         localStorage.setItem('favorites', JSON.stringify(Array.from(favorites)));
+
     }, [favorites]);
 
     useEffect(() => {
@@ -22,7 +23,7 @@ export const DogCard = ({ dog }) => {
             newFavorites.delete(dogId);
         } else {
             newFavorites.add(dogId);
-            console.log('NEW FAVORITES HAS ADDED THIS DOG', dogId)
+            // console.log('NEW FAVORITES HAS ADDED THIS DOG', dogId)
         }
         setFavorites(newFavorites);
     };
