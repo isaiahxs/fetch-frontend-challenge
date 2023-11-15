@@ -3,7 +3,7 @@ import './Pagination.css';
 import axios from 'axios';
 
 export const Pagination = ({
-    pageSize, setPageSize, resultIds, setResultIds, nextQuery, setNextQuery, prevQuery, setPrevQuery, currentPage, setCurrentPage, totalResults, setTotalResults
+    pageSize, setResultIds, nextQuery, setNextQuery, prevQuery, setPrevQuery, currentPage, setCurrentPage, totalResults, setTotalResults
 }) => {
 
     const X = (currentPage - 1) * pageSize + 1;

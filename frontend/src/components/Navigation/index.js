@@ -34,8 +34,8 @@ export default function Navigation() {
 
     useEffect(() => {
         const checkIfClickedOutside = e => {
-            // If the menu is open and the clicked target is not within the menu,
-            // then close the menu
+            // If nav menu is open, navRef is attached to an element (is not null), and click e.target occurred outside of the navigation element
+            //!navRef.current.contains(e.target), the contains method is to check if the target is not a descendant of the navigation element
             if (isNavOpen && navRef.current && !navRef.current.contains(e.target)) {
                 setIsNavOpen(false);
             }

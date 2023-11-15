@@ -45,7 +45,7 @@ export default function FilterPage() {
         setTotalResults([]);
         setResultIds([]);
         setAllDogs([]);
-        setAllFetchedDogs([]);
+        // setAllFetchedDogs([]);
         setSelectedZipCodes([]);
         // setAgeMin('');
         // setAgeMax('');
@@ -97,7 +97,9 @@ export default function FilterPage() {
             axios.post('https://frontend-take-home-service.fetch.com/dogs', resultIds, { withCredentials: true })
                 .then(response => {
                     setAllDogs(response.data);
+                    console.log('ALL DOGS', allDogs);
                     setAllFetchedDogs(prevDogs => [...new Set([...prevDogs, ...response.data])]);
+                    console.log('ALL FETCHED DOGS', allFetchedDogs);
                 })
                 .catch(error => {
                     console.error('Error fetching dog details:', error);

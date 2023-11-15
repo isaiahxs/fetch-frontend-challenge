@@ -13,12 +13,12 @@ export default function HomePage() {
 
     const galleryRef = useRef(null);
     const loginRef = useRef(null);
-    // const servicesRef = useRef(null);
-    const footerRef = useRef(null);
 
     // const { currentLanguage, setCurrentLanguage } = useLanguage();
     // const content = currentLanguage === 'english' ? englishContent : spanishContent;
 
+    // IntersectionObserver is a Web API that lets us async observe changes in the intersection of a target element with an ancestor element or the viewport
+    //IO is used to detect when elements referenced by galleryRef and loginRef come into viewport
     useEffect(() => {
         const observer = new IntersectionObserver(
             (entries, observer) => {
@@ -34,6 +34,7 @@ export default function HomePage() {
             }
         );
 
+        //observer.observe(targetElement) starts observing the specified target element for intersection changes
         if (galleryRef.current) {
             observer.observe(galleryRef.current);
         }
@@ -42,21 +43,17 @@ export default function HomePage() {
             observer.observe(loginRef.current);
         }
 
-        if (footerRef.current) {
-            observer.observe(footerRef.current);
-        }
+        //when these elements intersect with the viewport, based on my threshold, the callback function passed to IO is executed
+        //this callback adds the 'show' class element which adds CSS effects
 
         return () => {
+            //stop observing specified target element when the component is unmounted. important for preventing memory leaks
             if (galleryRef.current) {
                 observer.unobserve(galleryRef.current);
             }
 
             if (loginRef.current) {
                 observer.unobserve(loginRef.current);
-            }
-
-            if (footerRef.current) {
-                observer.unobserve(footerRef.current);
             }
         };
     }, []);

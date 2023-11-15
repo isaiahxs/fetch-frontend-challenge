@@ -1,9 +1,7 @@
 import React, { useState } from 'react';
 import { useLanguage } from '../../LanguageContext';
 import { englishContent, spanishContent } from './content';
-import Darron from '../../assets/images/Darron_Border_Collie.jpg';
 import doge from '../../assets/images/german_shep.png';
-import { Link } from 'react-router-dom';
 import map_pin from '../../assets/icons/map-pin.svg';
 import phone from '../../assets/icons/phone-icon.svg';
 import facebook from '../../assets/icons/facebook-logo.svg';
