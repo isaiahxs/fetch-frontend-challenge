@@ -4,7 +4,9 @@ import './Match.css';
 export default function Match() {
     const navigate = useNavigate();
     const location = useLocation();
+    //matchDetails being passed from FavoritesFilter
     const matchDetails = location.state?.matchDetails;
+    // console.log(matchDetails);
 
     const returnHome = () => {
         navigate('/');

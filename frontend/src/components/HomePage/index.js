@@ -1,9 +1,7 @@
 import React, { useEffect, useState, useRef } from 'react';
-import Navigation from '../Navigation';
 import LoginFormModal from '../LoginFormModal';
 import Hero from '../Hero';
 import Gallery from '../Gallery';
-import Footer from '../Footer';
 import { useNavigate } from 'react-router-dom'
 import './HomePage.css';
 import { useLanguage } from '../../LanguageContext';
@@ -11,33 +9,16 @@ import { englishContent, spanishContent } from './content';
 
 export default function HomePage() {
 
-    const [isModalVisible, setModalVisible] = useState(localStorage.getItem('isLoggedIn') !== 'true');
     const navigate = useNavigate()
 
     const galleryRef = useRef(null);
     const loginRef = useRef(null);
-    // const servicesRef = useRef(null);
-    const footerRef = useRef(null);
 
-    const { currentLanguage, setCurrentLanguage } = useLanguage();
-    const content = currentLanguage === 'english' ? englishContent : spanishContent;
+    // const { currentLanguage, setCurrentLanguage } = useLanguage();
+    // const content = currentLanguage === 'english' ? englishContent : spanishContent;
 
-    useEffect(() => {
-        const updateModalVisibility = () => {
-            setModalVisible(localStorage.getItem('isLoggedIn') !== 'true');
-        };
-
-        // Initial call to set the state
-        updateModalVisibility();
-
-        // Listen to storage changes
-        window.addEventListener('storage', updateModalVisibility);
-
-        return () => {
-            window.removeEventListener('storage', updateModalVisibility);
-        };
-    }, []);
-
+    // IntersectionObserver is a Web API that lets us async observe changes in the intersection of a target element with an ancestor element or the viewport
+    //IO is used to detect when elements referenced by galleryRef and loginRef come into viewport
     useEffect(() => {
         const observer = new IntersectionObserver(
             (entries, observer) => {
@@ -53,6 +34,7 @@ export default function HomePage() {
             }
         );
 
+        //observer.observe(targetElement) starts observing the specified target element for intersection changes
         if (galleryRef.current) {
             observer.observe(galleryRef.current);
         }
@@ -61,21 +43,17 @@ export default function HomePage() {
             observer.observe(loginRef.current);
         }
 
-        if (footerRef.current) {
-            observer.observe(footerRef.current);
-        }
+        //when these elements intersect with the viewport, based on my threshold, the callback function passed to IO is executed
+        //this callback adds the 'show' class element which adds CSS effects
 
         return () => {
+            //stop observing specified target element when the component is unmounted. important for preventing memory leaks
             if (galleryRef.current) {
                 observer.unobserve(galleryRef.current);
             }
 
             if (loginRef.current) {
                 observer.unobserve(loginRef.current);
-            }
-
-            if (footerRef.current) {
-                observer.unobserve(footerRef.current);
             }
         };
     }, []);
@@ -91,15 +69,15 @@ export default function HomePage() {
 
             {localStorage.getItem('isLoggedIn') !== 'true' && (
                 <div ref={loginRef} id='log-in-section' data-testid='log-in-section'>
-                    <LoginFormModal isModalVisible={isModalVisible} setModalVisible={setModalVisible} />
+                    <LoginFormModal />
                 </div>
             )}
 
             {localStorage.getItem('isLoggedIn') === 'true' && (
                 <div className='signed-in-home-message'>
-                    {content.signedIn}
+                    Looks like you're already signed in!
                     <button className='start-looking-button' onClick={handleClick}>
-                        {content.lookForPets}
+                        Look for pets
                     </button>
                 </div>
             )}

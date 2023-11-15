@@ -12,6 +12,10 @@
     box-shadow: 0px 0px 5px 0px #000000;
 }
 
+.nav-bar.night {
+    color: #300d38;
+}
+
 .hamburger-menu {
     display: flex;
     justify-content: center;

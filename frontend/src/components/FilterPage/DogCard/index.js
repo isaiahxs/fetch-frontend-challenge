@@ -1,10 +1,13 @@
 import { useState, useEffect, useRef } from 'react';
+import { useFilters } from '../FilterContext';
 import './DogCard.css';
 
-export const DogCard = ({ dog, favorites, setFavorites }) => {
+export const DogCard = ({ dog }) => {
+    const { favorites, setFavorites } = useFilters();
 
     useEffect(() => {
         localStorage.setItem('favorites', JSON.stringify(Array.from(favorites)));
+
     }, [favorites]);
 
     useEffect(() => {
@@ -20,7 +23,7 @@ export const DogCard = ({ dog, favorites, setFavorites }) => {
             newFavorites.delete(dogId);
         } else {
             newFavorites.add(dogId);
-            console.log('NEW FAVORITES HAS ADDED THIS DOG', dogId)
+            // console.log('NEW FAVORITES HAS ADDED THIS DOG', dogId)
         }
         setFavorites(newFavorites);
     };

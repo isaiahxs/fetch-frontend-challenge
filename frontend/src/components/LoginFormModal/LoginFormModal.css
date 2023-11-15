@@ -13,6 +13,10 @@
     background-color: #fee3ba;
 }
 
+.login-form.night {
+    color: #300d38;
+}
+
 .log-in-label {
     display: flex;
     justify-content: center;
@@ -77,6 +81,10 @@
     width: 400px;
     position: relative;
     overflow-y: hidden;
+}
+
+.error-message {
+    color: rgb(203, 0, 0);
 }
 
 @media screen and (max-width: 700px) {

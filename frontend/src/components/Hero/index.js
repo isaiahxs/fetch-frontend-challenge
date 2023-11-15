@@ -1,24 +1,25 @@
 import React, { useState } from 'react';
 import { useLanguage } from '../../LanguageContext';
 import { englishContent, spanishContent } from './content';
-import Darron from '../../assets/images/Darron_Border_Collie.jpg';
 import doge from '../../assets/images/german_shep.png';
-import { Link } from 'react-router-dom';
 import map_pin from '../../assets/icons/map-pin.svg';
 import phone from '../../assets/icons/phone-icon.svg';
 import facebook from '../../assets/icons/facebook-logo.svg';
 import instagram from '../../assets/icons/instagram.png';
 import { useNavigate } from 'react-router-dom'
+import { useTheme } from '../../ThemeContext';
 import './Hero.css';
 
 export default function Hero() {
-    const { currentLanguage, setCurrentLanguage } = useLanguage();
-    const navigate = useNavigate()
-    const toggleLanguage = () => {
-        setCurrentLanguage(currentLanguage === 'english' ? 'spanish' : 'english');
-    };
+    // const { currentLanguage, setCurrentLanguage } = useLanguage();
+    const navigate = useNavigate();
+    // const toggleLanguage = () => {
+    //     setCurrentLanguage(currentLanguage === 'english' ? 'spanish' : 'english');
+    // };
 
-    const content = currentLanguage === 'english' ? englishContent : spanishContent;
+    // const content = currentLanguage === 'english' ? englishContent : spanishContent;
+
+    const { theme, toggleTheme } = useTheme();
 
     const scrollToSection = (sectionId) => {
         const sectionElement = document.getElementById(sectionId);
@@ -85,7 +86,7 @@ export default function Hero() {
                 </div>
 
                 <div className='hero-image-and-contact fade3'>
-                    <div className='hero-image-container'>
+                    <div className={`hero-image-container ${theme}`}>
                         <img src={doge} className='hero-image' alt="Darron dog" />
                         <div className="gradient-overlay">
                             <div className='contact-container'>

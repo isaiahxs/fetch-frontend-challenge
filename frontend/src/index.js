@@ -4,16 +4,19 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { ModalProvider, Modal } from './context/Modal';
+import { ThemeProvider } from './ThemeContext';
 import { LanguageProvider } from './LanguageContext';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <ModalProvider>
-      <LanguageProvider>
-        <App />
-      </LanguageProvider>
-    </ModalProvider>
+    <ThemeProvider>
+      <ModalProvider>
+        <LanguageProvider>
+          <App />
+        </LanguageProvider>
+      </ModalProvider>
+    </ThemeProvider>
   </React.StrictMode>
 );
 
