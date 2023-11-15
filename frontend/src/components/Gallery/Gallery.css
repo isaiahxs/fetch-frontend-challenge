@@ -31,6 +31,11 @@ section.gallery-2 .slider {
     border-bottom: 2px solid #300d38;
 }
 
+.gallery-1.night {
+    border-top: 2px solid #fee3ba;
+    border-bottom: 2px solid #fee3ba;
+}
+
 .slider {}
 
 .slide-track {

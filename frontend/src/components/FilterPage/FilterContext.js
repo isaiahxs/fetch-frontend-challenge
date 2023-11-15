@@ -36,6 +36,10 @@ export const FilterProvider = ({ children }) => {
     // alphabetical filter state variables
     const [sortOrder, setSortOrder] = useState('asc'); // Sort order
 
+    // state (like NY or CA) variables
+    const [states, setStates] = useState([]);
+    const [newZips, setNewZips] = useState([]);
+
 
     return (
         <FilterContext.Provider
@@ -82,7 +86,13 @@ export const FilterProvider = ({ children }) => {
 
                 // alphabetical filters
                 sortOrder,
-                setSortOrder
+                setSortOrder,
+
+                // state filters
+                states,
+                setStates,
+                newZips,
+                setNewZips
             }}>
             {children}
         </FilterContext.Provider>

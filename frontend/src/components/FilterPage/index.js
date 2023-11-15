@@ -8,6 +8,7 @@ import { ZipCodeFilter } from './Filters/ZipCodeFilter';
 import AgeFilter from './Filters/AgeFilter';
 import { Pagination } from '../FilterPage/Pagination';
 import { SizeFilter } from '../FilterPage/Filters/SizeFilter';
+import { StatesFilter } from '../FilterPage/Filters/StatesFilter';
 import { useFilters } from './FilterContext';
 
 import './FilterPage.css';
@@ -31,6 +32,8 @@ export default function FilterPage() {
         ageMax,
         sortOrder,
         pageSize,
+        newZips,
+        setNewZips
     } = useFilters();
 
     // ------------------ FETCH DOGS AFTER FILTERS ------------------
@@ -39,6 +42,7 @@ export default function FilterPage() {
         setTotalResults([]);
         setResultIds([]);
         setAllDogs([]);
+        setNewZips([]);
         // setAllFetchedDogs([]);
         setSelectedZipCodes([]);
         // setAgeMin('');
@@ -51,10 +55,23 @@ export default function FilterPage() {
             .map(breed => `breeds=${encodeURIComponent(breed)}`)
             .join('&');
 
+        //--------------
         // ['59451', '98701']
-        const zipCodeParams = Array.from(selectedZipCodes)
+        // const zipCodeParams = Array.from(selectedZipCodes)
+        //     .map(zipCode => `zipCodes=${encodeURIComponent(zipCode)}`)
+        //     .join('&');
+
+        const selectedZipArray = Array.from(selectedZipCodes);
+        console.log(selectedZipArray);
+
+        console.log(newZips);
+        //check if newZips has elements, if it does, use newZips for the zip code parameters, if not, fall back to selectedZipCodes
+        const zipCodesToUse = newZips.length > 0 ? newZips : selectedZipArray;
+
+        const zipCodeParams = zipCodesToUse
             .map(zipCode => `zipCodes=${encodeURIComponent(zipCode)}`)
             .join('&');
+        //--------------
 
         const ageParams = [];
         if (ageMin) {
@@ -71,7 +88,7 @@ export default function FilterPage() {
 
         axios.get(url, { withCredentials: true })
             .then(response => {
-                console.log(response);
+                // console.log(response);
                 setResultIds(response.data.resultIds);
                 setNextQuery(response.data.next);
                 setTotalResults(response.data.total);
@@ -140,6 +157,8 @@ export default function FilterPage() {
                 <button className='search-button' onClick={fetchData}>
                     Fetch Dogs
                 </button>
+
+                <StatesFilter />
 
                 {allFetchedDogs.length > 0 && (
                     <>

@@ -13,6 +13,10 @@
     background-color: #fee3ba;
 }
 
+.login-form.night {
+    color: #300d38;
+}
+
 .log-in-label {
     display: flex;
     justify-content: center;

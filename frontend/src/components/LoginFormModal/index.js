@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom'
+import { useTheme } from '../../ThemeContext';
 import axios from 'axios';
 import './LoginFormModal.css';
 
@@ -9,6 +10,8 @@ function LoginFormModal() {
 
     const [errors, setErrors] = useState([]);
     const navigate = useNavigate()
+
+    const { theme, toggleTheme } = useTheme();
 
     //create handleSubmit function that will prevent default from occurring until all checks are valid
     //create strings that will be the errors we show in case of name or email error
@@ -50,7 +53,7 @@ function LoginFormModal() {
     return (
         <>
             <div className='fade-in login-form-container'>
-                <div className='login-form'>
+                <div className={`login-form ${theme}`}>
                     <h1 className='log-in-label'>Log In</h1>
                     <h2>Before you can adopt a new furry friend, you must sign in.</h2>
                     <form className='log-in-form'>

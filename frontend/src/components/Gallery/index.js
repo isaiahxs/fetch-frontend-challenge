@@ -1,5 +1,6 @@
 import { useLanguage } from '../../LanguageContext';
 import { englishContent, spanishContent } from './content';
+import { useTheme } from '../../ThemeContext';
 import './Gallery.css';
 
 import Darron from '../../assets/images/Darron_Border_Collie.jpg';
@@ -11,11 +12,13 @@ export default function Gallery() {
     // const { currentLanguage, setCurrentLanguage } = useLanguage();
     // const content = currentLanguage === 'english' ? englishContent : spanishContent;
 
+    const { theme, toggleTheme } = useTheme();
+
     return (
         <div className='gallery-section'>
             <h2 className='gallery-header'>Our Gallery</h2>
 
-            <section className='gallery-1'>
+            <section className={`gallery-1 ${theme}`}>
                 <div className='slider'>
                     <div className='slide-track'>
                         <div className='img-container slide'>
