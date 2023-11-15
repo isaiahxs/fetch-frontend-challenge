@@ -5,6 +5,7 @@ import black_dog from '../../assets/icons/black-dog.png';
 import logo_footer from '../../assets/icons/logo-footer.png';
 import hamburger from '../../assets/icons/hamburger.png';
 import axios from 'axios';
+import { useTheme } from '../../ThemeContext';
 import { useNavigate } from 'react-router-dom'
 import './Navigation.css'
 
@@ -15,6 +16,7 @@ export default function Navigation() {
 
     const navRef = useRef();
     const [isNavOpen, setIsNavOpen] = useState(false);
+    const { theme, toggleTheme } = useTheme();
 
     // const toggleLanguage = () => {
     //     setCurrentLanguage(currentLanguage === 'english' ? 'spanish' : 'english');
@@ -61,7 +63,7 @@ export default function Navigation() {
     };
 
     return (
-        <nav className='nav-bar'>
+        <nav className={`nav-bar ${theme}`}>
             <div className='nav-options'>
                 <div className='nav-logo-container'>
                     <img src={black_dog} className='small-logo fade-in' alt="Black Dog Logo" onClick={() => navigate('/')} />
@@ -81,6 +83,16 @@ export default function Navigation() {
                     <button className='x-button' onClick={toggleNavOpen}>X</button>
 
                     <div className='panel-buttons'>
+                        <div>
+                            <button className='nav-button panel-button' onClick={toggleTheme}>
+                                <div>
+                                    <p className='footer-icon-description'>
+                                        {theme === "day" ? 'Night' : 'Day'}
+                                    </p>
+                                </div>
+                            </button>
+                        </div>
+
                         <div>
                             <a href="https://www.isaiahxs.com/" target='_blank' rel='noopener noreferrer'>
                                 <button className='nav-button panel-button'>

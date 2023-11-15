@@ -13,6 +13,11 @@ body {
   /* background-color: black !important; */
 }
 
+.night {
+  color: white;
+  background-color: #300d38;
+}
+
 h2 {
   font-size: 1.6rem;
 }
